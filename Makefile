@@ -1,5 +1,5 @@
 #Mandatory extra flags
-CXXFLAGS := $(CXXFLAGS) -std=c++11 -O3
+CXXFLAGS := $(CXXFLAGS) -std=c++11 -O3 -DNDEBUG
 
 #Configuration
 INCLUDES := -Iinclude

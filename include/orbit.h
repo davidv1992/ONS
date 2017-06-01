@@ -15,7 +15,9 @@ class orbit;
 #include <orbit_rational.h>
 #include <orbit_abstract.h>
 #include <orbit_label.h>
-#include <orbit_pair.h>
+#include <orbit_ilabel.h>
+//#include <orbit_pair.h>
+#include <orbit_pair_alt.h>
 #include <orbit_variant.h>
 
 #endif

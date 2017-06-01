@@ -28,7 +28,7 @@ bool operator>(orbit<std::pair<A,B>> a, orbit<std::pair<A,B>>b) {
 		return a.Aorbit > b.Aorbit;
 	if (a.Borbit != b.Borbit)
 		return a.Borbit > b.Borbit;
-	return a.productmap > b.productMap;
+	return a.productMap > b.productMap;
 }
 
 template<typename T>

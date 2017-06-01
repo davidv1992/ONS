@@ -34,21 +34,30 @@ public:
 		return orbits.count(orb) != 0;
 	}
 	bool contains(nomset<T> subset) {
-		auto setit = subset.orbits.begin();
-		auto selfit = orbits.begin();
-		while (setit != subset.orbits.end() && selfit != orbits.end()) {
-			if (*selfit > *setit) {
-				return false;
-			} else if (*selfit < *setit) {
-				selfit++;
-			} else {
-				selfit++;
-				setit++;
-			}
-		}
-		if (setit != subset.orbits.end())
+		if (subset.orbits.size() > orbits.size())
 			return false;
-		return true;
+		if (subset.orbits.size() * 10 > orbits.size()) {
+			auto setit = subset.orbits.begin();
+			auto selfit = orbits.begin();
+			while (setit != subset.orbits.end() && selfit != orbits.end()) {
+				if (*selfit > *setit) {
+					return false;
+				} else if (*selfit < *setit) {
+					selfit++;
+				} else {
+					selfit++;
+					setit++;
+				}
+			}
+			if (setit != subset.orbits.end())
+				return false;
+			return true;
+		} else {
+			for (auto o : subset.orbits) {
+				if (!contains(o)) return false;
+			}
+			return true;
+		}
 	}
 };
 
@@ -110,7 +119,7 @@ nomset<T> nomset_intersect(nomset<T> a, nomset<T> b) {
 	return c;
 }
 
-void nomset_generate_product(std::string &cur, int nA, int nB, std::vector<std::string> &res) {
+/*void nomset_generate_product(std::string &cur, int nA, int nB, std::vector<std::string> &res) {
 	if (nA == 0 && nB == 0) {
 		res.push_back(cur);
 	}
@@ -142,6 +151,20 @@ nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b) {
 			nomset_generate_product(gen, aorb.supportSize(), borb.supportSize(), prods);
 			for (auto p : prods) {
 				c.orbits.insert(c.orbits.end(), orbit<std::pair<A,B>>(aorb, borb, p));
+			}
+		}
+	}
+	return c;
+}*/
+
+template<typename A, typename B>
+nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b) {
+	nomset<std::pair<A,B>> c;
+	for (auto aorb: a.orbits) {
+		for (auto borb: b.orbits) {
+			genProdTable(aorb.supportSize(), borb.supportSize());
+			for (unsigned i = 0; i<prodTable[aorb.supportSize()][borb.supportSize()]; i++) {
+				c.orbits.insert(c.orbits.end(), orbit<std::pair<A,B>>(aorb,borb,i));
 			}
 		}
 	}

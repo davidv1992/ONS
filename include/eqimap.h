@@ -39,19 +39,20 @@ public:
 
 	Trng operator()(Tdom in) {
 		orbit<Tdom> inOrbit(in);
-		if (mapData.count(inOrbit) == 0)
+		auto md = mapData.find(inOrbit);
+		if (md == mapData.end())
 			throw std::domain_error("Equivariant map input not in domain");
 		
 		std::vector<rational> inSeq = inOrbit.getSeqFromElement(in);
 		std::vector<rational> outSeq;
-		std::vector<bool> &mapMask = mapData[inOrbit].second;
+		std::vector<bool> &mapMask = md->second.second;
 		
 		for (size_t i=0; i<inSeq.size(); i++) {
 			if (mapMask[i])
 				outSeq.push_back(inSeq[i]);
 		}
 		
-		return mapData[inOrbit].first.getElementFromSeq(outSeq);
+		return md->second.first.getElementFromSeq(outSeq);
 	}
 	
 	void add(Tdom in, Trng out) {

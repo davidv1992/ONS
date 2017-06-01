@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <vector>
 #include <utility>
@@ -40,19 +41,19 @@ nomset<pair<Q,Q>> automaton_equiv(automaton<Q,A> aut) {
 	while (true) {
 		nomset<pair<Q,Q>> next;
 		
-		int alphQ = 0;
 		for (auto o : result.orbits) {
 			nomset<pair<Q,Q>> curOrbit;
 			curOrbit.orbits.insert(o);
 			
-			nomset<pair<pair<Q,Q>, A>> alphabetTest = nomset_filter(nomset_product(curOrbit, aut.alphabet), [&](pair<pair<Q,Q>,A> el) {
-				Q q1 = aut.delta(pair<Q,A>(el.first.first, el.second));
-				Q q2 = aut.delta(pair<Q,A>(el.first.second, el.second));
-				alphQ++;
-				return !result.contains(pair<Q,Q>(q1, q2));
+			nomset<pair<pair<Q,Q>, A>> testInput = nomset_product(curOrbit, aut.alphabet);
+			nomset<pair<Q,Q>> testOut = nomset_map<pair<pair<Q,Q>,A>, pair<Q,Q>>(testInput, [&](pair<pair<Q,Q>,A> el) {
+				auto q1 = aut.delta(pair<Q,A>(el.first.first, el.second));
+				auto q2 = aut.delta(pair<Q,A>(el.first.second, el.second));
+				auto res = pair<Q,Q>(q1, q2);
+				return res;
 			});
-			
-			if (alphabetTest.orbits.size() == 0) {
+			bool testResult = result.contains(testOut);
+			if (testResult) {
 				next.orbits.insert(next.orbits.end(), o);
 			}
 		}
@@ -162,7 +163,6 @@ automaton<pair<string, abstract>,A> automaton_minimize(automaton<Q,A> aut) {
 	return res;
 }
 
-/*
 int main() {
 	using Q = variant<pair<string, singleton>, rational, pair<rational, rational>, pair<pair<rational, rational>,rational>>;
 	automaton <Q, rational> aut;
@@ -213,10 +213,8 @@ int main() {
 	
 	cout << aut.states.orbits.size() << " " << min.states.orbits.size() << endl;
 }
-*/
 
-
-int main() {
+/*int main() {
 	using Q = variant<singleton, rational, pair<rational, rational>>;
 	automaton <Q, rational> aut;
 	
@@ -249,6 +247,7 @@ int main() {
 	vector<rational> test1 = {1,2,3,4,5};
 	vector<rational> test2 = {1,3,2,5,4};
 	
+	cout << "Starting tests" << endl;
 	cout << aut.accepts(test1) << endl;
 	cout << aut.accepts(test2) << endl;
 	
@@ -260,4 +259,4 @@ int main() {
 	cout << aut.states.orbits.size() << " " << min.states.orbits.size() << endl;
 
 	return 0;
-}
+}*/
