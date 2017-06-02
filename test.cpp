@@ -111,6 +111,7 @@ automaton<pair<string, abstract>,A> automaton_minimize(automaton<Q,A> aut) {
 					break;
 				}
 			}
+			if (handled) break;
 		}
 		
 		if (handled) continue;
@@ -163,6 +164,151 @@ automaton<pair<string, abstract>,A> automaton_minimize(automaton<Q,A> aut) {
 	return res;
 }
 
+template<typename Q, typename A> automaton<pair<int,abstract>,A> automaton_minimize2(automaton<Q,A> aut) {
+	nomset<pair<int,abstract>> part_domain;
+	eqimap<Q,pair<int,abstract>> partition;
+	
+	part_domain.orbits.insert(orbit<pair<int,abstract>>(1, orbit<abstract>(0)));
+	part_domain.orbits.insert(orbit<pair<int,abstract>>(2, orbit<abstract>(0)));
+	partition = eqimap<Q,pair<int,abstract>>(aut.states, [&](Q el) {
+		if (aut.finalStates.contains(el)) {
+			return pair<int, abstract>(1, abstract());
+		} else {
+			return pair<int, abstract>(2, abstract());
+		}
+	});
+	
+	bool cont = true;
+	while (cont) {
+		nomset<pair<int,abstract>> next_domain;
+		eqimap<Q,pair<int,abstract>> next_partition;
+		int next_dom_count = 1;
+		
+		cont = false;
+		for (auto o : aut.states.orbits) {
+			bool done = false;
+			nomset<Q> curOrbit;
+			curOrbit.orbits.insert(o);
+			
+			for (auto s : aut.states.orbits) {
+				if (!(s < o)) break;
+				nomset<Q> refOrbit;
+				refOrbit.orbits.insert(s);
+				nomset<pair<Q,Q>> refProduct = nomset_product(curOrbit, refOrbit);
+				for (auto p : refProduct.orbits) {
+					pair<Q,Q> el = p.getElement();
+					pair<int, abstract> e1 = partition(el.first);
+					pair<int, abstract> e2 = partition(el.second);
+					if (e1 != e2) continue;
+					
+					bool isOk = true;
+					nomset<pair<Q,Q>> pOrbit;
+					pOrbit.orbits.insert(p);
+					nomset<pair<pair<Q,Q>,A>> alphProduct = nomset_product(pOrbit, aut.alphabet);
+					for (auto ao : alphProduct.orbits) {
+						pair<pair<Q,Q>,A> ael = ao.getElement();
+						pair<int, abstract> e1 = partition(aut.delta(pair<Q,A>(ael.first.first, ael.second)));
+						pair<int, abstract> e2 = partition(aut.delta(pair<Q,A>(ael.first.second, ael.second)));
+						if (e1 != e2) {
+							isOk = false;
+							cont = true;
+							break;
+						}
+					}
+					
+					if (!isOk) continue;
+					auto md = next_partition.mapData.find(s);
+					std::vector<bool> &refMask = md->second.second;
+					std::vector<bool> curMask(o.supportSize(), false);
+					std::vector<rational> seqRef, seqCur;
+					seqCur = o.getSeqFromElement(el.first);
+					seqRef = s.getSeqFromElement(el.second);
+					size_t i_A = 0, i_B = 0;
+					while (i_A < seqCur.size() && i_B < seqRef.size()) {
+						if (seqCur[i_A] == seqRef[i_B]) {
+							curMask[i_A] = refMask[i_B];
+							i_A++;
+							i_B++;
+						} else if (seqCur[i_A] < seqRef[i_B]) {
+							i_A++;
+						} else {
+							i_B++;
+						}
+					}
+					next_partition.mapData[o] = {md->second.first, curMask};
+					done = true;
+				}
+				
+				if (done) break;
+			}
+			
+			if (done) continue;
+			
+			nomset<pair<Q,Q>> curProduct = nomset_product(curOrbit, curOrbit);
+			std::vector<bool> mask(o.supportSize(), true);
+			for (auto p : curProduct.orbits) {
+				auto el = p.getElement();
+				if (partition(el.first) != partition(el.second)) continue;
+				
+				bool isOk = true;
+				nomset<pair<Q,Q>> pOrbit;
+				pOrbit.orbits.insert(p);
+				nomset<pair<pair<Q,Q>,A>> alphProduct = nomset_product(pOrbit, aut.alphabet);
+				for (auto ao : alphProduct.orbits) {
+					auto ael = ao.getElement();
+					if (partition(aut.delta({ael.first.first, ael.second})) != partition(aut.delta({ael.first.second,ael.second}))) {
+						isOk = false;
+						cont = true;
+						break;
+					}
+				}
+				if (!isOk) continue;
+				
+				auto Aseq = o.getSeqFromElement(el.first);
+				auto Bseq = o.getSeqFromElement(el.second);
+				
+				for (size_t i = 0; i<Aseq.size(); i++) {
+					if (Aseq[i] != Bseq[i])
+						mask[i] = false;
+				}
+			}
+			
+			unsigned tgtSuppSize = 0;
+			for (auto b : mask) {
+				if (b) tgtSuppSize++;
+			}
+			
+			orbit<pair<int, abstract>> newOrbit(next_dom_count, orbit<abstract>(tgtSuppSize));
+			next_dom_count++;
+			next_domain.orbits.insert(newOrbit);
+			next_partition.mapData[o] = {newOrbit, mask};
+		}
+		
+		part_domain = next_domain;
+		partition = next_partition;
+	}
+	
+	automaton<pair<int,abstract>,A> res;
+	res.states = part_domain;
+	res.initialState = partition(aut.initialState);
+	res.finalStates = nomset_map<Q, pair<int,abstract>,eqimap<Q,pair<int,abstract>>>(aut.finalStates, partition);
+	
+	auto deltaSpace = nomset_product(aut.states, aut.alphabet);
+	for (auto o : deltaSpace.orbits) {
+		auto el = o.getElement();
+		pair<pair<int,abstract>,A> nel;
+		nel.second = el.second;
+		nel.first = partition(el.first);
+		orbit<pair<pair<int,abstract>,A>> to(nel);
+		if (res.delta.mapData.count(to) != 0) continue;
+		
+		pair<int,abstract> out = partition(aut.delta(el));
+		res.delta.add(nel, out);
+	}
+	
+	return res;
+}
+
 int main() {
 	using Q = variant<pair<string, singleton>, rational, pair<rational, rational>, pair<pair<rational, rational>,rational>>;
 	automaton <Q, rational> aut;
@@ -203,7 +349,7 @@ int main() {
 		}
 	});
 	
-	auto min = automaton_minimize(aut);
+	auto min = automaton_minimize2(aut);
 	
 	for (auto o : min.states.orbits) {
 		cout << o.getElement();
@@ -251,7 +397,7 @@ int main() {
 	cout << aut.accepts(test1) << endl;
 	cout << aut.accepts(test2) << endl;
 	
-	auto min = automaton_minimize(aut);
+	auto min = automaton_minimize2(aut);
 	
 	cout << min.accepts(test1) << endl;
 	cout << min.accepts(test2) << endl;
