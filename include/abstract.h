@@ -31,4 +31,11 @@ std::ostream& operator<<(std::ostream& o, abstract el) {
 	return o << "}";
 }
 
+bool operator==(abstract a, abstract b) {
+	return a.data == b.data;
+}
+bool operator!=(abstract a, abstract b) {
+	return a.data != b.data;
+}
+
 #endif
