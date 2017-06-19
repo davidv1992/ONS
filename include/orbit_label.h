@@ -36,22 +36,22 @@ private:
 	std::string label;
 	orbit<A> Aorbit;
 public:
-	int supportSize() {
+	int supportSize() const {
 		return Aorbit.supportSize();
 	}
-	std::pair<std::string,A> getElementFromSeq(std::vector<rational> seq) {
+	std::pair<std::string,A> getElementFromSeq(std::vector<rational> seq) const {
 		return std::pair<std::string,A>(label, Aorbit.getElementFromSeq(seq));
 	}
-	std::vector<rational> getSeqFromElement(std::pair<std::string,A> el) {
+	std::vector<rational> getSeqFromElement(std::pair<std::string,A> el) const {
 		return Aorbit.getSeqFromElement(el.second);
 	}
 	orbit(){}
 	orbit(std::pair<std::string, A> el) : label(el.first), Aorbit(el.second) {}
 	orbit(std::string s, orbit<A> o) : label(s), Aorbit(o) {}
-	std::pair<std::string,A> getElement() {
+	std::pair<std::string,A> getElement() const {
 		return std::pair<std::string,A>(label, Aorbit.getElement());
 	}
-	bool isElement(std::pair<std::string,A> el) {
+	bool isElement(std::pair<std::string,A> el) const {
 		if (el.first != label)
 			return false;
 		return Aorbit.isElement(el.second);

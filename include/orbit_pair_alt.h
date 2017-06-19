@@ -94,10 +94,10 @@ private:
 		}
 	}
 public:
-	int supportSize() {
+	int supportSize() const {
 		return size;
 	}
-	std::pair<A,B> getElementFromSeq(std::vector<rational> seq) {
+	std::pair<A,B> getElementFromSeq(std::vector<rational> seq) const {
 		assert(seq.size() == size);
 		
 		std::vector<rational> Aseq, Bseq;
@@ -124,7 +124,7 @@ public:
 		
 		return std::pair<A,B>(Aorbit.getElementFromSeq(Aseq), Borbit.getElementFromSeq(Bseq));
 	}
-	std::vector<rational> getSeqFromElement(std::pair<A,B> el) {
+	std::vector<rational> getSeqFromElement(std::pair<A,B> el) const {
 		assert(isElement(el));
 		
 		std::vector<rational> Aseq = Aorbit.getSeqFromElement(el.first);
@@ -190,14 +190,14 @@ public:
 		size += nA;
 		size += nB;
 	}
-	std::pair<A,B> getElement() {
+	std::pair<A,B> getElement() const {
 		std::vector<rational> seq;
 		for (unsigned i=0; i<size; i++) {
 			seq.push_back(i+1);
 		}
 		return getElementFromSeq(seq);
 	}
-	bool isElement(std::pair<A,B> el) {
+	bool isElement(std::pair<A,B> el) const {
 		if (!Aorbit.isElement(el.first) || !Borbit.isElement(el.second)) {
 			return false;
 		}

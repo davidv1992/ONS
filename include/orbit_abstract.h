@@ -12,13 +12,13 @@ private:
 	size_t support;
 public:
 	orbit() {}
-	int supportSize() {
+	int supportSize() const {
 		return support;
 	}
-	abstract getElementFromSeq(std::vector<rational> seq) {
+	abstract getElementFromSeq(std::vector<rational> seq) const {
 		return abstract(seq);
 	}
-	std::vector<rational> getSeqFromElement(abstract el) {
+	std::vector<rational> getSeqFromElement(abstract el) const {
 		std::vector<rational> seq;
 		for (auto r : el.data) {
 			seq.push_back(r);
@@ -31,14 +31,14 @@ public:
 	orbit(size_t i) {
 		support = i;
 	}
-	abstract getElement() {
+	abstract getElement() const {
 		abstract el;
 		for (size_t i=1; i<=support; i++) {
 			el.data.insert(i);
 		}
 		return el;
 	}
-	bool isElement(abstract el) {
+	bool isElement(abstract el) const {
 		return el.data.size() == support;
 	}
 	

@@ -11,24 +11,24 @@ class orbit<singleton> {
 private:
 	orbit() {}
 public:
-	int supportSize() {
+	int supportSize() const {
 		return 0;
 	}
-	singleton getElementFromSeq(std::vector<rational> seq) {
+	singleton getElementFromSeq(std::vector<rational> seq) const {
 		(void)seq;
 		return singleton();
 	}
-	std::vector<rational> getSeqFromElement(singleton s) {
+	std::vector<rational> getSeqFromElement(singleton s) const {
 		(void) s;
 		return std::vector<rational>(0);
 	}
 	orbit(singleton s) {
 		(void) s;
 	}
-	singleton getElement() {
+	singleton getElement() const {
 		return singleton();
 	}
-	bool isElement(singleton s) {
+	bool isElement(singleton s) const {
 		(void) s;
 		return true;
 	}

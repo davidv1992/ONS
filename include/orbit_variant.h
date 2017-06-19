@@ -152,15 +152,15 @@ private:
 	
 	orbitVariant Vorbit;
 public:
-	int supportSize() {
+	int supportSize() const {
 		assert(Vorbit.valid());
 		return __variant_orbit_helper<orbitVariant, variant<Ts...>, Ts...>::supportSize(Vorbit.index(), Vorbit);
 	}
-	variant<Ts...> getElementFromSeq(std::vector<rational> seq) {
+	variant<Ts...> getElementFromSeq(std::vector<rational> seq) const {
 		assert(Vorbit.valid());
 		return __variant_orbit_helper<orbitVariant, variant<Ts...>, Ts...>::getElementFromSeq(Vorbit.index(), Vorbit, seq);
 	}
-	std::vector<rational> getSeqFromElement(variant<Ts...> el) {
+	std::vector<rational> getSeqFromElement(variant<Ts...> el) const {
 		assert(isElement(el));
 		return __variant_orbit_helper<orbitVariant, variant<Ts...>, Ts...>::getSeqFromElement(Vorbit.index(), Vorbit, el);
 	}
@@ -173,11 +173,11 @@ public:
 		Vorbit = orig;
 	}
 	
-	variant<Ts...> getElement() {
+	variant<Ts...> getElement() const {
 		assert(Vorbit.valid());
 		return __variant_orbit_helper<orbitVariant, variant<Ts...>, Ts...>::getElement(Vorbit.index(), Vorbit);
 	}
-	bool isElement(variant<Ts...> el) {
+	bool isElement(variant<Ts...> el) const {
 		if (el.index() != Vorbit.index())
 			return false;
 		return __variant_orbit_helper<orbitVariant, variant<Ts...>, Ts...>::isElement(Vorbit.index(), Vorbit, el);

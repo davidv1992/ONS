@@ -274,13 +274,13 @@ public:
 		current_index = __temparg_index<T, TF, Ts...>::v;
 	}
 	
-	unsigned index() {
+	unsigned index() const {
 		return current_index;
 	}
 	
 	static const unsigned npos = __temparg_count<TF, Ts...>::v;
 	
-	bool valid() {
+	bool valid() const {
 		return current_index != npos;
 	}
 	

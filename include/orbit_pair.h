@@ -42,10 +42,10 @@ private:
 	orbit<B> Borbit;
 	orbit(orbit<A> aorb, orbit<B> borb, std::string p) : productMap(p), Aorbit(aorb), Borbit(borb) {}
 public:
-	int supportSize() {
+	int supportSize() const {
 		return productMap.size();
 	}
-	std::pair<A,B> getElementFromSeq(std::vector<rational> seq) {
+	std::pair<A,B> getElementFromSeq(std::vector<rational> seq) const {
 		assert(seq.size() >= productMap.size());
 		
 		std::vector<rational> Aseq, Bseq;
@@ -60,7 +60,7 @@ public:
 		
 		return std::pair<A,B>(Aorbit.getElementFromSeq(Aseq), Borbit.getElementFromSeq(Bseq));
 	}
-	std::vector<rational> getSeqFromElement(std::pair<A,B> el) {
+	std::vector<rational> getSeqFromElement(std::pair<A,B> el) const {
 		assert(isElement(el));
 		
 		std::vector<rational> Aseq = Aorbit.getSeqFromElement(el.first);
@@ -114,14 +114,14 @@ public:
 			B_i++;
 		}
 	}
-	std::pair<A,B> getElement() {
+	std::pair<A,B> getElement() const {
 		std::vector<rational> seq;
 		for (size_t i=0; i<productMap.size(); i++) {
 			seq.push_back(i+1);
 		}
 		return getElementFromSeq(seq);
 	}
-	bool isElement(std::pair<A,B> el) {
+	bool isElement(std::pair<A,B> el) const {
 		if (!Aorbit.isElement(el.first) || !Borbit.isElement(el.second)) {
 			return false;
 		}

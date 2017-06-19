@@ -11,23 +11,23 @@ class orbit<rational> {
 private:
 	orbit() {}
 public:
-	int supportSize() {
+	int supportSize() const {
 		return 1;
 	}
-	rational getElementFromSeq(std::vector<rational> seq) {
+	rational getElementFromSeq(std::vector<rational> seq) const {
 		assert(seq.size() >= 1);
 		return seq[0];
 	}
-	std::vector<rational> getSeqFromElement(rational a) {
+	std::vector<rational> getSeqFromElement(rational a) const {
 		return std::vector<rational>(1,a);
 	}
 	orbit(rational a) {
 		(void) a;
 	}
-	rational getElement() {
+	rational getElement() const {
 		return 1;
 	}
-	bool isElement(rational a) {
+	bool isElement(rational a) const {
 		(void) a;
 		return true;
 	}
