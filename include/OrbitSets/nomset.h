@@ -12,6 +12,8 @@
 template<typename T>
 class nomset {
 public:
+	typedef typename std::set<orbit<T>>::iterator iterator;
+	
 	std::set<orbit<T>> orbits;
 	
 	nomset(){}
@@ -58,6 +60,21 @@ public:
 			}
 			return true;
 		}
+	}
+	
+	void insert(orbit<T> orb) {
+		orbits.insert(orb);
+	}
+	void insert(T el) {
+		orbits.insert(orbit<T>(el));
+	}
+	
+	iterator begin() {
+		return orbits.begin();
+	}
+	
+	iterator end() {
+		return orbits.end();
 	}
 };
 

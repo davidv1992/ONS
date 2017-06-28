@@ -7,6 +7,8 @@
 
 class abstract {
 public:
+	typedef std::set<rational>::iterator iterator;
+
 	std::set<rational> data;
 	
 	abstract() {}
@@ -15,6 +17,13 @@ public:
 		for (auto e : d) {
 			data.insert(e);
 		}
+	}
+	
+	iterator begin() {
+		return data.begin();
+	}
+	iterator end() {
+		return data.begin();
 	}
 };
 

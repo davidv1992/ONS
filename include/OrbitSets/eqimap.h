@@ -10,6 +10,8 @@
 template<typename Tdom, typename Trng>
 class eqimap {
 public:
+	typedef typename std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>>::iterator iterator;
+
 	std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>> mapData;
 	eqimap() {}
 	template<typename F>
@@ -73,6 +75,18 @@ public:
 			}
 		}
 		mapData[ino] = std::pair<orbit<Trng>,std::vector<bool>>(outo, mask);
+	}
+	
+	std::pair<orbit<Trng>, std::vector<bool>> &operator[](orbit<Tdom> d) {
+		return mapData[d];
+	}
+	
+	iterator begin() {
+		return mapData.begin();
+	}
+	
+	iterator end() {
+		return mapData.end();
 	}
 };
 
