@@ -9,11 +9,6 @@
 
 using namespace std;
 
-template<typename A, typename B>
-ostream &operator<<(ostream &o, pair<A,B> p) {
-	return o << "(" << p.first << "," << p.second << ")";
-}
-
 template<typename Q, typename A>
 class automaton {
 public:

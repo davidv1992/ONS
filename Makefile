@@ -6,13 +6,22 @@ INCLUDES := -Iinclude
 
 TEST_OBJS := test.o
 
+.DEFAULT_GOAL := all
+
+#Subdirectory fragments
+MODULES_CLEAN := 
+include tests/make.config
+
 #Targets
+all: test $(TEST_TARGETS)
+
 test: $(TEST_OBJS)
 	g++ $(CXXFLAGS) $(LDFLAGS) -o test $(TEST_OBJS)
 
 clean:
 	rm -f $(TEST_OBJS)
 	rm -f $(TEST_OBJS:.o=.d)
+	rm -f $(MODULES_CLEAN)
 	rm -f test
 
 #Common rules
