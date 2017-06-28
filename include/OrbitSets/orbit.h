@@ -16,8 +16,7 @@ class orbit;
 #include <OrbitSets/impl/orbit_abstract.h>
 #include <OrbitSets/impl/orbit_label.h>
 #include <OrbitSets/impl/orbit_ilabel.h>
-//#include <OrbitSets/impl/orbit_pair.h>
-#include <OrbitSets/impl/orbit_pair_alt.h>
+#include <OrbitSets/impl/orbit_pair.h>
 #include <OrbitSets/impl/orbit_variant.h>
 
 #endif

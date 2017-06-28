@@ -119,44 +119,6 @@ nomset<T> nomset_intersect(nomset<T> a, nomset<T> b) {
 	return c;
 }
 
-/*void nomset_generate_product(std::string &cur, int nA, int nB, std::vector<std::string> &res) {
-	if (nA == 0 && nB == 0) {
-		res.push_back(cur);
-	}
-	
-	if (nA != 0) {
-		cur.push_back('A');
-		nomset_generate_product(cur, nA-1, nB, res);
-		cur.pop_back();
-	}
-	if (nB != 0) {
-		cur.push_back('B');
-		nomset_generate_product(cur, nA, nB-1, res);
-		cur.pop_back();
-	}
-	if (nA != 0 && nB != 0) {
-		cur.push_back('C');
-		nomset_generate_product(cur, nA-1, nB-1, res);
-		cur.pop_back();
-	}
-}
-
-template<typename A, typename B>
-nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b) {
-	nomset<std::pair<A,B>> c;
-	for (auto aorb : a.orbits) {
-		for (auto borb : b.orbits) {
-			std::vector<std::string> prods;
-			std::string gen="";
-			nomset_generate_product(gen, aorb.supportSize(), borb.supportSize(), prods);
-			for (auto p : prods) {
-				c.orbits.insert(c.orbits.end(), orbit<std::pair<A,B>>(aorb, borb, p));
-			}
-		}
-	}
-	return c;
-}*/
-
 template<typename A, typename B>
 nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b) {
 	nomset<std::pair<A,B>> c;
