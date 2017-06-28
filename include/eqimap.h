@@ -37,7 +37,7 @@ public:
 		}
 	}
 
-	Trng operator()(Tdom in) {
+	Trng operator()(Tdom in) const {
 		orbit<Tdom> inOrbit(in);
 		auto md = mapData.find(inOrbit);
 		if (md == mapData.end())
@@ -45,7 +45,7 @@ public:
 		
 		std::vector<rational> inSeq = inOrbit.getSeqFromElement(in);
 		std::vector<rational> outSeq;
-		std::vector<bool> &mapMask = md->second.second;
+		const std::vector<bool> &mapMask = md->second.second;
 		
 		for (size_t i=0; i<inSeq.size(); i++) {
 			if (mapMask[i])
