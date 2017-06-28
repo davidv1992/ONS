@@ -3,7 +3,7 @@
 
 #include <set>
 #include <iostream>
-#include <rational.h>
+#include <OrbitSets/rational.h>
 
 class abstract {
 public:

@@ -1,7 +1,7 @@
 #ifndef ORBSETS_ORBIT_VARIANT
 #define ORBSETS_ORBIT_VARIANT
 
-#include <variant.h>
+#include <OrbitSets/variant.h>
 
 template<typename... Ts>
 class __typename_store {};

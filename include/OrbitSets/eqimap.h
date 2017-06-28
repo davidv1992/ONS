@@ -4,8 +4,8 @@
 #include <map>
 #include <vector>
 #include <stdexcept>
-#include <rational.h>
-#include <orbit.h>
+#include <OrbitSets/rational.h>
+#include <OrbitSets/orbit.h>
 
 template<typename Tdom, typename Trng>
 class eqimap {

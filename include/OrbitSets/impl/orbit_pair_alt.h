@@ -4,6 +4,12 @@
 #include <utility>
 #include <string>
 #include <cassert>
+#include <iostream>
+
+template<typename A, typename B>
+std::ostream &operator<<(std::ostream &o, std::pair<A,B> p) {
+	return o << "(" << p.first << "," << p.second << ")";
+}
 
 std::vector<std::vector<unsigned>>prodTable(1,std::vector<unsigned>(1,1));
 

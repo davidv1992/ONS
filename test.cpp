@@ -4,8 +4,8 @@
 #include <vector>
 #include <utility>
 
-#include <nomset.h>
-#include <eqimap.h>
+#include <OrbitSets/nomset.h>
+#include <OrbitSets/eqimap.h>
 
 using namespace std;
 

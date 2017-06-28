@@ -1,16 +1,15 @@
 #ifndef ORBSETS_ORBIT_SINGLETON
 #define ORBSETS_ORBIT_SINGLETON
 
-#include <singleton.h>
+#include <OrbitSets/singleton.h>
 
 template<typename T>
 class nomset;
 
 template<>
 class orbit<singleton> {
-private:
-	orbit() {}
 public:
+	orbit() {}
 	int supportSize() const {
 		return 0;
 	}

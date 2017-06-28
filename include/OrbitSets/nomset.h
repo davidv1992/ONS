@@ -5,9 +5,9 @@
 #include <utility>
 #include <string>
 
-#include <singleton.h>
-#include <rational.h>
-#include <orbit.h>
+#include <OrbitSets/singleton.h>
+#include <OrbitSets/rational.h>
+#include <OrbitSets/orbit.h>
 
 template<typename T>
 class nomset {

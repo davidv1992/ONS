@@ -8,9 +8,8 @@ class nomset;
 
 template<>
 class orbit<rational> {
-private:
-	orbit() {}
 public:
+	orbit() {}
 	int supportSize() const {
 		return 1;
 	}

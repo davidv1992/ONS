@@ -1,7 +1,7 @@
 #ifndef ORBSETS_ORBIT_ABSTRACT
 #define ORBSETS_ORBIT_ABSTRACT
 
-#include <abstract.h>
+#include <OrbitSets/abstract.h>
 
 template<typename T>
 class nomset;
