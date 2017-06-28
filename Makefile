@@ -7,22 +7,23 @@ INCLUDES := -Iinclude
 TEST_OBJS := test.o
 
 .DEFAULT_GOAL := all
+.PHONY: test
 
 #Subdirectory fragments
 MODULES_CLEAN := 
 include tests/make.config
 
 #Targets
-all: test $(TEST_TARGETS)
+all: testp $(TEST_TARGETS)
 
-test: $(TEST_OBJS)
-	g++ $(CXXFLAGS) $(LDFLAGS) -o test $(TEST_OBJS)
+testp: $(TEST_OBJS)
+	g++ $(CXXFLAGS) $(LDFLAGS) -o testp $(TEST_OBJS)
 
 clean:
 	rm -f $(TEST_OBJS)
 	rm -f $(TEST_OBJS:.o=.d)
 	rm -f $(MODULES_CLEAN)
-	rm -f test
+	rm -f testp
 
 #Common rules
 .cpp.o:

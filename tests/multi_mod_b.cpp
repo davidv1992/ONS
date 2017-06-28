@@ -10,6 +10,8 @@ nomset<pair<rational,rational>> f();
 
 int main() {
 	nomset<pair<rational,rational>> x = nomset_product(nomset_rationals(), nomset_rationals()), y = f();
-	cout << (x == y) << endl;
-	return 0;
+	if (x == y)
+		return 0;
+	else
+		return 1;
 }
