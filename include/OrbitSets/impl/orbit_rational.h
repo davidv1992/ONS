@@ -34,22 +34,22 @@ public:
 	friend nomset<rational> nomset_rationals();
 };
 
-bool operator==(orbit<rational> a, orbit<rational> b) {
+inline bool operator==(orbit<rational> a, orbit<rational> b) {
 	(void) a;
 	(void) b;
 	return true;
 }
-bool operator!=(orbit<rational> a, orbit<rational> b) {
+inline bool operator!=(orbit<rational> a, orbit<rational> b) {
 	(void) a;
 	(void) b;
 	return false;
 }
-bool operator<(orbit<rational> a, orbit<rational> b) {
+inline bool operator<(orbit<rational> a, orbit<rational> b) {
 	(void) a;
 	(void) b;
 	return false;
 }
-bool operator>(orbit<rational> a, orbit<rational> b) {
+inline bool operator>(orbit<rational> a, orbit<rational> b) {
 	(void) a;
 	(void) b;
 	return false;

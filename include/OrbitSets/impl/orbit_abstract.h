@@ -48,16 +48,16 @@ public:
 	friend bool operator> (orbit<abstract> a, orbit<abstract> b);
 };
 
-bool operator==(orbit<abstract> a, orbit<abstract> b) {
+inline bool operator==(orbit<abstract> a, orbit<abstract> b) {
 	return a.support == b.support;
 }
-bool operator!=(orbit<abstract> a, orbit<abstract> b) {
+inline bool operator!=(orbit<abstract> a, orbit<abstract> b) {
 	return a.support != b.support;
 }
-bool operator< (orbit<abstract> a, orbit<abstract> b) {
+inline bool operator< (orbit<abstract> a, orbit<abstract> b) {
 	return a.support < b.support;
 }
-bool operator> (orbit<abstract> a, orbit<abstract> b) {
+inline bool operator> (orbit<abstract> a, orbit<abstract> b) {
 	return a.support > b.support;
 }
 

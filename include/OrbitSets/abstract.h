@@ -18,7 +18,7 @@ public:
 	}
 };
 
-std::ostream& operator<<(std::ostream& o, abstract el) {
+inline std::ostream& operator<<(std::ostream& o, abstract el) {
 	o << "{";
 	bool isFirst = true;
 	for (auto r : el.data) {
@@ -31,10 +31,10 @@ std::ostream& operator<<(std::ostream& o, abstract el) {
 	return o << "}";
 }
 
-bool operator==(abstract a, abstract b) {
+inline bool operator==(abstract a, abstract b) {
 	return a.data == b.data;
 }
-bool operator!=(abstract a, abstract b) {
+inline bool operator!=(abstract a, abstract b) {
 	return a.data != b.data;
 }
 

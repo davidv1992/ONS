@@ -55,37 +55,37 @@ public:
 };
 
 // Equality operations
-bool operator==(rational a, rational b) {
+inline bool operator==(rational a, rational b) {
 	return a.numerator == b.numerator && a.denominator == b.denominator;
 }
-bool operator!=(rational a, rational b) {
+inline bool operator!=(rational a, rational b) {
 	return a.numerator != b.numerator || a.denominator != b.denominator;
 }
 
 // Ordering operations
-bool operator<(rational a, rational b) {
+inline bool operator<(rational a, rational b) {
 	return a.numerator * b.denominator < b.numerator * a.denominator;
 }
-bool operator>(rational a, rational b) {
+inline bool operator>(rational a, rational b) {
 	return a.numerator * b.denominator > b.numerator * a.denominator;
 }
 
 // Arithmetic
-rational operator+(rational a, rational b) {
+inline rational operator+(rational a, rational b) {
 	return rational(a.numerator*b.denominator+b.numerator*a.denominator, a.denominator*b.denominator);
 }
-rational operator-(rational a, rational b) {
+inline rational operator-(rational a, rational b) {
 	return rational(a.numerator*b.denominator-b.numerator*a.denominator, a.denominator*b.denominator);
 }
-rational operator*(rational a, rational b) {
+inline rational operator*(rational a, rational b) {
 	return rational(a.numerator*b.numerator, a.denominator*b.denominator);
 }
-rational operator/(rational a, rational b) {
+inline rational operator/(rational a, rational b) {
 	return rational(a.numerator*b.denominator, a.denominator*b.numerator);
 }
 
 // Output
-std::ostream &operator<<(std::ostream &o, rational a) {
+inline std::ostream &operator<<(std::ostream &o, rational a) {
 	return o << a.numerator << "/" << a.denominator;
 }
 

@@ -6,7 +6,7 @@
 class singleton {
 };
 
-std::ostream &operator<<(std::ostream &o, singleton s) {
+inline std::ostream &operator<<(std::ostream &o, singleton s) {
 	(void)s;// Singleton is dataless by definition so using it is meaningless
 	return o << '*';
 }

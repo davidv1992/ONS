@@ -36,22 +36,22 @@ public:
 
 };
 
-bool operator==(orbit<singleton> a, orbit<singleton> b) {
+inline bool operator==(orbit<singleton> a, orbit<singleton> b) {
 	(void) a;
 	(void) b;
 	return true;
 }
-bool operator!=(orbit<singleton> a, orbit<singleton> b) {
+inline bool operator!=(orbit<singleton> a, orbit<singleton> b) {
 	(void)a;
 	(void)b;
 	return false;
 }
-bool operator<(orbit<singleton> a, orbit<singleton> b) {
+inline bool operator<(orbit<singleton> a, orbit<singleton> b) {
 	(void) a;
 	(void) b;
 	return false;
 }
-bool operator>(orbit<singleton> a, orbit<singleton> b) {
+inline bool operator>(orbit<singleton> a, orbit<singleton> b) {
 	(void) a;
 	(void) b;
 	return false;

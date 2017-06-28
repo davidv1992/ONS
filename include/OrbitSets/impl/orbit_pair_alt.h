@@ -11,35 +11,39 @@ std::ostream &operator<<(std::ostream &o, std::pair<A,B> p) {
 	return o << "(" << p.first << "," << p.second << ")";
 }
 
-std::vector<std::vector<unsigned>>prodTable(1,std::vector<unsigned>(1,1));
+inline unsigned prodCount(unsigned A, unsigned B) {
+	static std::vector<std::vector<unsigned>>prodTable(1,std::vector<unsigned>(1,1));
+	if (!(prodTable.size() > A && prodTable[0].size() > B)) {
+		A++;
+		B++;
+		
+		if (prodTable[0].size() < B) {
+			for (unsigned i=0; i<prodTable.size(); i++) {
+				for (unsigned j=prodTable[i].size(); j<B; j++) {
+					unsigned res = 0;
+					if (i > 0) res += prodTable[i-1][j];
+					if (j > 0) res += prodTable[i][j-1];
+					if (i > 0 && j > 0) res += prodTable[i-1][j-1];
+					prodTable[i].push_back(res);
+				}
+			}
+		}
 
-void genProdTable(unsigned A, unsigned B) {
-	if (prodTable.size() > A && prodTable[0].size() > B) return;
-	
-	A++;
-	B++;
-	if (prodTable[0].size() < B) {
-		for (unsigned i=0; i<prodTable.size(); i++) {
-			for (unsigned j=prodTable[i].size(); j<B; j++) {
+		for (unsigned i=prodTable.size(); i<A; i++) {
+			prodTable.push_back(std::vector<unsigned>(B));
+			for (unsigned j=0; j<B; j++) {
 				unsigned res = 0;
 				if (i > 0) res += prodTable[i-1][j];
 				if (j > 0) res += prodTable[i][j-1];
 				if (i > 0 && j > 0) res += prodTable[i-1][j-1];
-				prodTable[i].push_back(res);
+				prodTable[i][j] = res;
 			}
 		}
+		
+		A--;
+		B--;
 	}
-	
-	for (unsigned i=prodTable.size(); i<A; i++) {
-		prodTable.push_back(std::vector<unsigned>(B));
-		for (unsigned j=0; j<B; j++) {
-			unsigned res = 0;
-			if (i > 0) res += prodTable[i-1][j];
-			if (j > 0) res += prodTable[i][j-1];
-			if (i > 0 && j > 0) res += prodTable[i-1][j-1];
-			prodTable[i][j] = res;
-		}
-	}
+	return prodTable[A][B];
 }
 
 template<typename A, typename B>
@@ -85,16 +89,16 @@ private:
 		size = 0;
 		while (nA || nB) {
 			size++;
-			if (nA != 0 && idx < prodTable[nA-1][nB]) {
+			if (nA != 0 && idx < prodCount(nA-1, nB)) {
 				nA--;
 			} else {
 				if (nA != 0)
-					idx -= prodTable[nA-1][nB];
+					idx -= prodCount(nA-1, nB);
 				nB--;
-				if (nA != 0 && idx < prodTable[nA-1][nB]) {
+				if (nA != 0 && idx < prodCount(nA-1, nB)) {
 					nA--;
 				} else if (nA != 0) {
-					idx -= prodTable[nA-1][nB];
+					idx -= prodCount(nA-1, nB);
 				}
 			}
 		}
@@ -111,19 +115,19 @@ public:
 		unsigned nB = Borbit.supportSize();
 		unsigned idx = productMap;
 		for (unsigned i = 0; i<size; i++) {
-			if (nA != 0 && idx < prodTable[nA-1][nB]) {
+			if (nA != 0 && idx < prodCount(nA-1, nB)) {
 				Aseq.push_back(seq[i]);
 				nA--;
 			} else {
 				if (nA != 0)
-					idx -= prodTable[nA-1][nB];
+					idx -= prodCount(nA-1, nB);
 				Bseq.push_back(seq[i]);
 				nB--;
-				if (nA != 0 && idx < prodTable[nA-1][nB]) {
+				if (nA != 0 && idx < prodCount(nA-1, nB)) {
 					Aseq.push_back(seq[i]);
 					nA--;
 				} else if (nA != 0) {
-					idx -= prodTable[nA-1][nB];
+					idx -= prodCount(nA-1, nB);
 				}
 			}
 		}
@@ -142,21 +146,21 @@ public:
 		size_t i_A = 0, i_B = 0;
 		unsigned idx = productMap;
 		for (unsigned i = 0; i < size; i++) {
-			if (nA != 0 && idx < prodTable[nA-1][nB]) {
+			if (nA != 0 && idx < prodCount(nA-1, nB)) {
 				seq.push_back(Aseq[i_A]);
 				nA--;
 				i_A++;
 			} else {
 				if (nA != 0)
-					idx -= prodTable[nA-1][nB];
+					idx -= prodCount(nA-1, nB);
 				seq.push_back(Bseq[i_B]);
 				nB--;
 				i_B++;
-				if (nA != 0 && idx < prodTable[nA-1][nB]) {
+				if (nA != 0 && idx < prodCount(nA-1, nB)) {
 					nA--;
 					i_A++;
 				} else if (nA != 0) {
-					idx -= prodTable[nA-1][nB];
+					idx -= prodCount(nA-1, nB);
 				}
 			}
 		}
@@ -170,7 +174,6 @@ public:
 		size_t A_i = 0;
 		size_t B_i = 0;
 		unsigned nA = Aorbit.supportSize(), nB = Borbit.supportSize();
-		genProdTable(nA, nB);
 		
 		size = 0;
 		productMap = 0;
@@ -180,14 +183,14 @@ public:
 				nA--;
 				A_i++;
 			} else {
-				productMap += prodTable[nA-1][nB];
+				productMap += prodCount(nA-1, nB);
 				if (Aseq[A_i] == Bseq[B_i]) {
 					nB--;
 					B_i++;
 					nA--;
 					A_i++;
 				} else {
-					productMap += prodTable[nA-1][nB-1];
+					productMap += prodCount(nA-1, nB-1);
 					nB--;
 					B_i++;
 				}
@@ -215,13 +218,13 @@ public:
 		unsigned nA = Aorbit.supportSize(), nB = Borbit.supportSize();
 		unsigned idx = productMap;
 		for (unsigned i = 0; i< size && nA != 0 && nB != 0; i++) {
-			if (idx < prodTable[nA-1][nB]) {
+			if (idx < prodCount(nA-1, nB)) {
 				if (!(Aseq[i_A] < Bseq[i_B])) return false;
 				nA--;
 				i_A++;
 			} else {
-				idx -= prodTable[nA-1][nB];
-				if (idx < prodTable[nA-1][nB-1]) {
+				idx -= prodCount(nA-1, nB);
+				if (idx < prodCount(nA-1, nB-1)) {
 					if (Aseq[i_A] != Bseq[i_B]) return false;
 					nA--;
 					i_A++;
@@ -229,7 +232,7 @@ public:
 					i_B++;
 				} else {
 					if (!(Aseq[i_A] > Bseq[i_B])) return false;
-					idx -= prodTable[nA-1][nB-1];
+					idx -= prodCount(nA-1, nB-1);
 					nB--;
 					i_B++;
 				}

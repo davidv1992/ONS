@@ -162,8 +162,7 @@ nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b) {
 	nomset<std::pair<A,B>> c;
 	for (auto aorb: a.orbits) {
 		for (auto borb: b.orbits) {
-			genProdTable(aorb.supportSize(), borb.supportSize());
-			for (unsigned i = 0; i<prodTable[aorb.supportSize()][borb.supportSize()]; i++) {
+			for (unsigned i = 0; i<prodCount(aorb.supportSize(), borb.supportSize()); i++) {
 				c.orbits.insert(c.orbits.end(), orbit<std::pair<A,B>>(aorb,borb,i));
 			}
 		}
@@ -171,13 +170,13 @@ nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b) {
 	return c;
 }
 
-nomset<singleton> nomset_singleton() {
+inline nomset<singleton> nomset_singleton() {
 	nomset<singleton> c;
 	c.orbits.insert(c.orbits.end(), orbit<singleton>());
 	return c;
 }
 
-nomset<rational> nomset_rationals() {
+inline nomset<rational> nomset_rationals() {
 	nomset<rational> c;
 	c.orbits.insert(c.orbits.end(), orbit<rational>());
 	return c;
