@@ -76,6 +76,10 @@ public:
 	iterator end() {
 		return orbits.end();
 	}
+	
+	size_t size() {
+		return orbits.size();
+	}
 };
 
 template<typename T>

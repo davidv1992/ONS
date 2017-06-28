@@ -25,6 +25,10 @@ public:
 	iterator end() {
 		return data.begin();
 	}
+	
+	size_t size() {
+		return data.size();
+	}
 };
 
 inline std::ostream& operator<<(std::ostream& o, abstract el) {
