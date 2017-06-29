@@ -2,6 +2,7 @@
 #define ORBSETS_ABSTRACT
 
 #include <set>
+#include <vector>
 #include <iostream>
 #include <OrbitSets/rational.h>
 
