@@ -147,7 +147,7 @@ namespace OrbitSets {
 		nomset<std::pair<A,B>> c;
 		for (auto aorb: a.orbits) {
 			for (auto borb: b.orbits) {
-				for (unsigned i = 0; i<prodCount(aorb.supportSize(), borb.supportSize()); i++) {
+				for (unsigned i = 0; i<orbpair_internal::prodCount(aorb.supportSize(), borb.supportSize()); i++) {
 					c.orbits.insert(c.orbits.end(), orbit<std::pair<A,B>>(aorb,borb,i));
 				}
 			}

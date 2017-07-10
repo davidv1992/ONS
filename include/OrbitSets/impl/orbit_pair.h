@@ -12,40 +12,42 @@ namespace OrbitSets {
 	std::ostream &operator<<(std::ostream &o, std::pair<A,B> p) {
 		return o << "(" << p.first << "," << p.second << ")";
 	}
-
-	inline unsigned prodCount(unsigned A, unsigned B) {
-		static std::vector<std::vector<unsigned>>prodTable(1,std::vector<unsigned>(1,1));
-		if (!(prodTable.size() > A && prodTable[0].size() > B)) {
-			A++;
-			B++;
+	
+	namespace orbpair_internal {
+		inline unsigned prodCount(unsigned A, unsigned B) {
+			static std::vector<std::vector<unsigned>>prodTable(1,std::vector<unsigned>(1,1));
+			if (!(prodTable.size() > A && prodTable[0].size() > B)) {
+				A++;
+				B++;
 		
-			if (prodTable[0].size() < B) {
-				for (unsigned i=0; i<prodTable.size(); i++) {
-					for (unsigned j=prodTable[i].size(); j<B; j++) {
+				if (prodTable[0].size() < B) {
+					for (unsigned i=0; i<prodTable.size(); i++) {
+						for (unsigned j=prodTable[i].size(); j<B; j++) {
+							unsigned res = 0;
+							if (i > 0) res += prodTable[i-1][j];
+							if (j > 0) res += prodTable[i][j-1];
+							if (i > 0 && j > 0) res += prodTable[i-1][j-1];
+							prodTable[i].push_back(res);
+						}
+					}
+				}
+
+				for (unsigned i=prodTable.size(); i<A; i++) {
+					prodTable.push_back(std::vector<unsigned>(B));
+					for (unsigned j=0; j<B; j++) {
 						unsigned res = 0;
 						if (i > 0) res += prodTable[i-1][j];
 						if (j > 0) res += prodTable[i][j-1];
 						if (i > 0 && j > 0) res += prodTable[i-1][j-1];
-						prodTable[i].push_back(res);
+						prodTable[i][j] = res;
 					}
 				}
-			}
-
-			for (unsigned i=prodTable.size(); i<A; i++) {
-				prodTable.push_back(std::vector<unsigned>(B));
-				for (unsigned j=0; j<B; j++) {
-					unsigned res = 0;
-					if (i > 0) res += prodTable[i-1][j];
-					if (j > 0) res += prodTable[i][j-1];
-					if (i > 0 && j > 0) res += prodTable[i-1][j-1];
-					prodTable[i][j] = res;
-				}
-			}
 		
-			A--;
-			B--;
+				A--;
+				B--;
+			}
+			return prodTable[A][B];
 		}
-		return prodTable[A][B];
 	}
 
 	template<typename A, typename B>
@@ -91,16 +93,16 @@ namespace OrbitSets {
 			size = 0;
 			while (nA || nB) {
 				size++;
-				if (nA != 0 && idx < prodCount(nA-1, nB)) {
+				if (nA != 0 && idx < orbpair_internal::prodCount(nA-1, nB)) {
 					nA--;
 				} else {
 					if (nA != 0)
-						idx -= prodCount(nA-1, nB);
+						idx -= orbpair_internal::prodCount(nA-1, nB);
 					nB--;
-					if (nA != 0 && idx < prodCount(nA-1, nB)) {
+					if (nA != 0 && idx < orbpair_internal::prodCount(nA-1, nB)) {
 						nA--;
 					} else if (nA != 0) {
-						idx -= prodCount(nA-1, nB);
+						idx -= orbpair_internal::prodCount(nA-1, nB);
 					}
 				}
 			}
@@ -117,19 +119,19 @@ namespace OrbitSets {
 			unsigned nB = Borbit.supportSize();
 			unsigned idx = productMap;
 			for (unsigned i = 0; i<size; i++) {
-				if (nA != 0 && idx < prodCount(nA-1, nB)) {
+				if (nA != 0 && idx < orbpair_internal::prodCount(nA-1, nB)) {
 					Aseq.push_back(seq[i]);
 					nA--;
 				} else {
 					if (nA != 0)
-						idx -= prodCount(nA-1, nB);
+						idx -= orbpair_internal::prodCount(nA-1, nB);
 					Bseq.push_back(seq[i]);
 					nB--;
-					if (nA != 0 && idx < prodCount(nA-1, nB)) {
+					if (nA != 0 && idx < orbpair_internal::prodCount(nA-1, nB)) {
 						Aseq.push_back(seq[i]);
 						nA--;
 					} else if (nA != 0) {
-						idx -= prodCount(nA-1, nB);
+						idx -= orbpair_internal::prodCount(nA-1, nB);
 					}
 				}
 			}
@@ -148,21 +150,21 @@ namespace OrbitSets {
 			size_t i_A = 0, i_B = 0;
 			unsigned idx = productMap;
 			for (unsigned i = 0; i < size; i++) {
-				if (nA != 0 && idx < prodCount(nA-1, nB)) {
+				if (nA != 0 && idx < orbpair_internal::prodCount(nA-1, nB)) {
 					seq.push_back(Aseq[i_A]);
 					nA--;
 					i_A++;
 				} else {
 					if (nA != 0)
-						idx -= prodCount(nA-1, nB);
+						idx -= orbpair_internal::prodCount(nA-1, nB);
 					seq.push_back(Bseq[i_B]);
 					nB--;
 					i_B++;
-					if (nA != 0 && idx < prodCount(nA-1, nB)) {
+					if (nA != 0 && idx < orbpair_internal::prodCount(nA-1, nB)) {
 						nA--;
 						i_A++;
 					} else if (nA != 0) {
-						idx -= prodCount(nA-1, nB);
+						idx -= orbpair_internal::prodCount(nA-1, nB);
 					}
 				}
 			}
@@ -185,14 +187,14 @@ namespace OrbitSets {
 					nA--;
 					A_i++;
 				} else {
-					productMap += prodCount(nA-1, nB);
+					productMap += orbpair_internal::prodCount(nA-1, nB);
 					if (Aseq[A_i] == Bseq[B_i]) {
 						nB--;
 						B_i++;
 						nA--;
 						A_i++;
 					} else {
-						productMap += prodCount(nA-1, nB-1);
+						productMap += orbpair_internal::prodCount(nA-1, nB-1);
 						nB--;
 						B_i++;
 					}
@@ -220,13 +222,13 @@ namespace OrbitSets {
 			unsigned nA = Aorbit.supportSize(), nB = Borbit.supportSize();
 			unsigned idx = productMap;
 			for (unsigned i = 0; i< size && nA != 0 && nB != 0; i++) {
-				if (idx < prodCount(nA-1, nB)) {
+				if (idx < orbpair_internal::prodCount(nA-1, nB)) {
 					if (!(Aseq[i_A] < Bseq[i_B])) return false;
 					nA--;
 					i_A++;
 				} else {
-					idx -= prodCount(nA-1, nB);
-					if (idx < prodCount(nA-1, nB-1)) {
+					idx -= orbpair_internal::prodCount(nA-1, nB);
+					if (idx < orbpair_internal::prodCount(nA-1, nB-1)) {
 						if (Aseq[i_A] != Bseq[i_B]) return false;
 						nA--;
 						i_A++;
@@ -234,7 +236,7 @@ namespace OrbitSets {
 						i_B++;
 					} else {
 						if (!(Aseq[i_A] > Bseq[i_B])) return false;
-						idx -= prodCount(nA-1, nB-1);
+						idx -= orbpair_internal::prodCount(nA-1, nB-1);
 						nB--;
 						i_B++;
 					}
