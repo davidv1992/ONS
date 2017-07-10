@@ -21,7 +21,7 @@ Create a variant initialy containing the value of the variant iv. The type of th
 
 
 It has the following members:
---------------------------------------
+-----------------------------
 T get<T>();
 T_i get<i>();
 Extract data from the variant with the given type. Throws std::bad_cast when the type does not match with the type of the data stored in the variant. For the second variant, i is an integer given is an index into the list of types storable in the variant, and T_i a placeholder for the referenced type
@@ -42,5 +42,7 @@ Notes:
 If an exception occurs during copying of the value into the variant, the variants state will default to empty. Unless initialized empty, or assigned from another empty variant, this is the only way a variant becomes empty.
 
 When all argument types have a total order (==, !=, <, >, <= and >=), the comparison operators for the variant are also defined. For == and !=, it is sufficient for each of the constituent types to have those operators.
+
+When all argument types are printable to stream i/o, the stream io output operator << is defined.
 
 
