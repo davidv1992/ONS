@@ -29,9 +29,6 @@ namespace OrbitSets {
 		return a.Aorbit > b.Aorbit;
 	}
 
-	template<typename T>
-	class nomset;
-
 	template<typename A>
 	class orbit<std::pair<int,A>> {
 	private:
