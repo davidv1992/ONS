@@ -6,12 +6,12 @@
 #include <cassert>
 #include <iostream>
 
-namespace OrbitSets {
+template<typename A, typename B>
+std::ostream &operator<<(std::ostream &o, std::pair<A,B> p) {
+	return o << "(" << p.first << "," << p.second << ")";
+}
 
-	template<typename A, typename B>
-	std::ostream &operator<<(std::ostream &o, std::pair<A,B> p) {
-		return o << "(" << p.first << "," << p.second << ")";
-	}
+namespace OrbitSets {
 	
 	namespace orbpair_internal {
 		inline unsigned prodCount(unsigned A, unsigned B) {

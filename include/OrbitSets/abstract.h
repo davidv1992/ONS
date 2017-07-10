@@ -34,19 +34,6 @@ namespace OrbitSets {
 		}
 	};
 
-	inline std::ostream& operator<<(std::ostream& o, abstract el) {
-		o << "{";
-		bool isFirst = true;
-		for (auto r : el.data) {
-			if (isFirst)
-				isFirst =false;
-			else
-				o << ", ";
-			o << r;
-		}
-		return o << "}";
-	}
-
 	inline bool operator==(abstract a, abstract b) {
 		return a.data == b.data;
 	}
@@ -54,6 +41,19 @@ namespace OrbitSets {
 		return a.data != b.data;
 	}
 
+}
+
+inline std::ostream& operator<<(std::ostream& o, OrbitSets::abstract el) {
+	o << "{";
+	bool isFirst = true;
+	for (auto r : el.data) {
+		if (isFirst)
+			isFirst =false;
+		else
+			o << ", ";
+		o << r;
+	}
+	return o << "}";
 }
 
 #endif
