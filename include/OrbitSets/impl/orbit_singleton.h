@@ -58,7 +58,16 @@ namespace OrbitSets {
 		(void) b;
 		return false;
 	}
-
+	inline bool operator<=(orbit<singleton> a, orbit<singleton> b) {
+		(void) a;
+		(void) b;
+		return true;
+	}
+	inline bool operator>=(orbit<singleton> a, orbit<singleton> b) {
+		(void) a;
+		(void) b;
+		return true;
+	}
 }
 
 #endif

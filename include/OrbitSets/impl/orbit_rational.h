@@ -56,6 +56,16 @@ namespace OrbitSets {
 		(void) b;
 		return false;
 	}
+	inline bool operator<=(orbit<rational> a, orbit<rational> b) {
+		(void) a;
+		(void) b;
+		return true;
+	}
+	inline bool operator>=(orbit<rational> a, orbit<rational> b) {
+		(void) a;
+		(void) b;
+		return true;
+	}
 	
 }
 

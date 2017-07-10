@@ -53,6 +53,8 @@ namespace OrbitSets {
 
 		friend bool operator<(rational a, rational b);
 		friend bool operator>(rational a, rational b);
+		friend bool operator<=(rational a, rational b);
+		friend bool operator>=(rational a, rational b);
 
 		friend rational operator+(rational a, rational b);
 		friend rational operator-(rational a, rational b);
@@ -76,6 +78,12 @@ namespace OrbitSets {
 	}
 	inline bool operator>(rational a, rational b) {
 		return a.numerator * b.denominator > b.numerator * a.denominator;
+	}
+	inline bool operator<=(rational a, rational b) {
+		return a.numerator * b.denominator <= b.numerator * a.denominator;
+	}
+	inline bool operator>=(rational a, rational b) {
+		return a.numerator * b.denominator >= b.numerator * a.denominator;
 	}
 
 	// Arithmetic

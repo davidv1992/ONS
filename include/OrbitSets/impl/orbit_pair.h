@@ -75,6 +75,14 @@ namespace OrbitSets {
 			return a.Borbit > b.Borbit;
 		return a.productMap > b.productMap;
 	}
+	template<typename A, typename B>
+	bool operator<=(orbit<std::pair<A,B>> a, orbit<std::pair<A,B>> b) {
+		return !(a > b);
+	}
+	template<typename A, typename B>
+	bool operator>=(orbit<std::pair<A,B>> a, orbit<std::pair<A,B>> b) {
+		return !(a < b);
+	}
 
 	template<typename T>
 	class nomset;

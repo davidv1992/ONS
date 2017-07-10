@@ -147,6 +147,14 @@ namespace OrbitSets {
 	bool operator>(orbit<variant<Ts...>> a, orbit<variant<Ts...>> b) {
 		return a.Vorbit > b.Vorbit;
 	}
+	template<typename... Ts>
+	bool operator<=(orbit<variant<Ts...>> a, orbit<variant<Ts...>> b) {
+		return a.Vorbit <= b.Vorbit;
+	}
+	template<typename... Ts>
+	bool operator>=(orbit<variant<Ts...>> a, orbit<variant<Ts...>> b) {
+		return a.Vorbit >= b.Vorbit;
+	}
 
 	template<typename... Ts>
 	class orbit<variant<Ts...>> {
@@ -191,6 +199,8 @@ namespace OrbitSets {
 		friend bool operator!= <>(orbit<variant<Ts...>> a, orbit<variant<Ts...>> b);
 		friend bool operator<  <>(orbit<variant<Ts...>> a, orbit<variant<Ts...>> b);
 		friend bool operator>  <>(orbit<variant<Ts...>> a, orbit<variant<Ts...>> b);
+		friend bool operator<= <>(orbit<variant<Ts...>> a, orbit<variant<Ts...>> b);
+		friend bool operator>= <>(orbit<variant<Ts...>> a, orbit<variant<Ts...>> b);
 	};
 
 }

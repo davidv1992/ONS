@@ -28,6 +28,19 @@ namespace OrbitSets {
 			return a.label > b.label;
 		return a.Aorbit > b.Aorbit;
 	}
+	template<typename A>
+	bool operator<=(orbit<std::pair<std::string,A>> a, orbit<std::pair<std::string,A>> b) {
+		if (a.label != b.label)
+			return a.label <= b.label;
+		return a.Aorbit <= b.Aorbit;
+	}
+	template<typename A>
+	bool operator>=(orbit<std::pair<std::string,A>> a, orbit<std::pair<std::string,A>> b) {
+		if (a.label != b.label)
+			return a.label >= b.label;
+		return a.Aorbit >= b.Aorbit;
+	}
+	
 
 	template<typename A>
 	class orbit<std::pair<std::string,A>> {
@@ -60,6 +73,8 @@ namespace OrbitSets {
 		friend bool operator!=<>(orbit<std::pair<std::string,A>> a, orbit<std::pair<std::string,A>> b);
 		friend bool operator< <>(orbit<std::pair<std::string,A>> a, orbit<std::pair<std::string,A>> b);
 		friend bool operator> <>(orbit<std::pair<std::string,A>> a, orbit<std::pair<std::string,A>> b);
+		friend bool operator<=<>(orbit<std::pair<std::string,A>> a, orbit<std::pair<std::string,A>> b);
+		friend bool operator>=<>(orbit<std::pair<std::string,A>> a, orbit<std::pair<std::string,A>> b);
 	};
 }
 

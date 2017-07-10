@@ -191,6 +191,14 @@ namespace OrbitSets {
 	bool operator>(variant<Ts...> a, variant<Ts...> b) {
 		return b < a;
 	}
+	template<typename... Ts>
+	bool operator<=(variant<Ts...> a, variant<Ts...> b) {
+		return !(b < a);
+	}
+	template<typename... Ts>
+	bool operator>=(variant<Ts...> a, variant<Ts...> b) {
+		return !(a < b);
+	}
 
 	template<typename... Ts>
 	std::ostream& operator<<(std::ostream& o, variant<Ts...> a) {

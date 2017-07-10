@@ -44,6 +44,8 @@ namespace OrbitSets {
 		friend bool operator!=(orbit<abstract> a, orbit<abstract> b);
 		friend bool operator< (orbit<abstract> a, orbit<abstract> b);
 		friend bool operator> (orbit<abstract> a, orbit<abstract> b);
+		friend bool operator<=(orbit<abstract> a, orbit<abstract> b);
+		friend bool operator>=(orbit<abstract> a, orbit<abstract> b);
 	};
 
 	inline bool operator==(orbit<abstract> a, orbit<abstract> b) {
@@ -58,7 +60,12 @@ namespace OrbitSets {
 	inline bool operator> (orbit<abstract> a, orbit<abstract> b) {
 		return a.support > b.support;
 	}
-
+	inline bool operator<=(orbit<abstract> a, orbit<abstract> b) {
+		return a.support <= b.support;
+	}
+	inline bool operator>=(orbit<abstract> a, orbit<abstract> b) {
+		return a.support >= b.support;
+	}
 }
 
 #endif
