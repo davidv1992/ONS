@@ -26,7 +26,7 @@ namespace OrbitSets {
 			return data.begin();
 		}
 		iterator end() {
-			return data.begin();
+			return data.end();
 		}
 	
 		size_t size() {
