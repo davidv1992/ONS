@@ -4,10 +4,6 @@
 #include <OrbitSets/abstract.h>
 
 namespace OrbitSets {
-
-	template<typename T>
-	class nomset;
-
 	template<>
 	class orbit<abstract> {
 	private:
