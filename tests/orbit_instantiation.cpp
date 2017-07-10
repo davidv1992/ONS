@@ -7,6 +7,7 @@
 #include <OrbitSets/variant.h>
 
 using namespace std;
+using namespace OrbitSets;
 
 int main() {
 	// Simple types

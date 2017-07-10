@@ -1,8 +1,10 @@
 #ifndef ORBSETS_ORBIT
 #define ORBSETS_ORBIT
 
-template<typename T>
-class orbit;
+namespace OrbitSets {
+	template<typename T>
+	class orbit;
+}
 
 // Interface required
 #include <vector>

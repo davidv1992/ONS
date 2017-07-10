@@ -8,6 +8,7 @@
 #include <OrbitSets/eqimap.h>
 
 using namespace std;
+using namespace OrbitSets;
 
 template<typename Q, typename A>
 class automaton {

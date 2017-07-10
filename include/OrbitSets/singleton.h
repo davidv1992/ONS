@@ -3,12 +3,16 @@
 
 #include <iostream>
 
-class singleton {
-};
+namespace OrbitSets {
 
-inline std::ostream &operator<<(std::ostream &o, singleton s) {
-	(void)s;// Singleton is dataless by definition so using it is meaningless
-	return o << '*';
+	class singleton {
+	};
+
+	inline std::ostream &operator<<(std::ostream &o, singleton s) {
+		(void)s;// Singleton is dataless by definition so using it is meaningless
+		return o << '*';
+	}
+
 }
 
 #endif

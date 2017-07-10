@@ -4,6 +4,7 @@
 #include <OrbitSets/abstract.h>
 
 using namespace std;
+using namespace OrbitSets;
 
 int main() {
 	// Rationals
