@@ -1,0 +1,46 @@
+  #include <variant.h>
+
+This header provides a strongly typed union datatype. It's design is similar to the std::variant proposed for the c++17 standard
+
+It defines the following class: 
+
+class variant<A,B,...>;
+
+The template arguments are the various types of data to be stored in the variant.
+
+It has the following constructors:
+----------------------------------
+variant<A,B,...>();
+Create an empty variant
+
+variant<A,B,...>(T iv);
+Create a variant initialy containing initial value of type T, where T must occur in the template argument list.
+
+variant<A,B,...>(variant<C,D,...> iv);
+Create a variant initialy containing the value of the variant iv. The type of that value must be in the list of types of the created variant.
+
+
+It has the following members:
+--------------------------------------
+T get<T>();
+T_i get<i>();
+Extract data from the variant with the given type. Throws std::bad_cast when the type does not match with the type of the data stored in the variant. For the second variant, i is an integer given is an index into the list of types storable in the variant, and T_i a placeholder for the referenced type
+
+void set<T>(T v);
+void set<i>(T_i v);
+Store the value v in the variant, discarding the old value. For the second variant, i is an integer given is an index into the list of types storable in the variant, and T_i a placeholder for the referenced type.
+
+static const unsigned npos;
+This contains the number of types storable in the variant.
+
+unsigned index();
+The index of the type of the value currently in the variant in the template argument list. Will equal variant<A,B,...>::npos when the variant is empty.
+
+Notes:
+------
+
+If an exception occurs during copying of the value into the variant, the variants state will default to empty. Unless initialized empty, or assigned from another empty variant, this is the only way a variant becomes empty.
+
+When all argument types have a total order (==, !=, <, >, <= and >=), the comparison operators for the variant are also defined. For == and !=, it is sufficient for each of the constituent types to have those operators.
+
+
