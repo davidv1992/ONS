@@ -1,0 +1,11 @@
+  #include <singleton.h>
+
+This header provides a singleton type, eg. a type with only one value.
+
+It defines the following class
+
+class singleton;
+
+which is only default constructable, and has no members.
+
+For this class, a stream i/o output operator << is defined.
