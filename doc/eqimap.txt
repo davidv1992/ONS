@@ -1,0 +1,40 @@
+  #include <eqimap.h>
+
+This header defines a class ecapsulating the concept of an equivariant partial function.
+
+It defines the following class:
+
+class eqimap<Tdom, Trng>;
+
+Tdom is the type of the domain, and Trng the type of the range.
+
+It has the following constructors:
+----------------------------------
+eqimap<Tdom, Trng>();
+Create an empty eqimap
+
+eqimap<Tdom, Trng>(nomset<Tdom> domain, F f);
+Create an equimap with given domain corresponding to the given equivariant function or function-like object f.
+
+It has the following members:
+-----------------------------
+Trng operator()(Tdom in);
+Evaluate the function for a specific input. If the input is not in the domain, this throws std::domain_error.
+
+std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>> mapData;
+Storage for the map information. The std::vector<bool> is used to indicate which of the support of the input element to keep for the output element. Given a sorted sequence that is the least support of the input, the i-th element of the std::vector<bool> indicates whether to keep (true) or discard(false) this element in the least support of the output.
+
+void add(Tdom in, Trng out);
+Expand or change the equivariant map to map in to out.
+
+typedef typename std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>>::iterator iterator;
+iterator begin();
+iterator end();
+std::pair<orbit<Trng>, std::vector<bool>> &operator[];
+Wrappers for easy use of the corresponding functions of mapData.
+
+Notes:
+------
+When directly manipulating the mapdata, behaviour of the other member functions is undefined if the stored data is inconsistent.
+
+When adding information to the map, or creating it from a function, the inputs should be consistent with an equivariant map. If not, behaviour is undefined.
