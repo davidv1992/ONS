@@ -2,33 +2,33 @@
 
 This header provides the orbit class, representing a single orbit of a nominal set. It is a templated class whose type argument provides the structure of the elements in the orbit. It is currently implemented through explicit specialization, and provides support for the types abstract, singleton, rational, pair<int,T>, pair<string,T>, pair<T,T'> and variant<T1,...,Tn>. In the compound types, the type arguments need to again be supported by orbits.
 
-This header defines the following class
+This header defines the following class:
 
 class orbit<T>;
 
 It has the following constructors:
 ----------------------------------
-orbit<T>()
+orbit<T>();
 A default constructor to support standard datastructures. SHOULD NOT be used explicitly
 
-orbit<T>(T el)
+orbit<T>(T el);
 Constructs an orbit that contains the given element.
 
 It has the following members:
 -----------------------------
-bool isElement(T el)
+bool isElement(T el);
 Returns whether a particular element is in the given orbit.
 
-T getElement()
+T getElement();
 Returns a representative element of the orbit.
 
-int supportSize(T el)
+int supportSize(T el);
 Returns the size of the least support of the orbit.
 
-std::vector<rational> getSeqFromElement(T el)
+std::vector<rational> getSeqFromElement(T el);
 Given an element of the orbit, give a sorted sequence that is the least support of that element.
 
-T getElementFromSeq(std::vector<rational> seq)
+T getElementFromSeq(std::vector<rational> seq);
 Given a sorted sequence of rationals of size supportSize(), give the element of the orbit having that sequence as least support.
 
 Notes:
@@ -36,3 +36,5 @@ Notes:
 getSeqFromElement and getElementFromSeq require that their input be well-formed. Their behaviour is undefined when given input outside their domains.
 
 Abstract is used as type to represent abstract orbits (e.g. those without a structed type behind them). It exposes an extra constructor orbit<abstract>(int s) that constructs an orbit with least support of size s.
+
+Variant is used for sum types, and it provides an extra constructor allowing conversion from orbits of contained types.
