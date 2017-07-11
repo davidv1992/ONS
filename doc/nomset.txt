@@ -1,0 +1,67 @@
+  #include <nomset.h>
+
+This header provides the nomset class, as well as a number of functions for manipulating nominal sets.
+
+This header defines the following class:
+class nomset<T>;
+
+It has the following constructors:
+----------------------------------
+nomset<T>();
+Create an empty nominal set.
+
+nomset<T>(nomset<Q> orig);
+Create a nomset with type converted from Q to T, provided Q and T are compatible types. Primarily usefull when dealing with nomsets containing variants.
+
+It has the following members:
+-----------------------------
+bool contains(T el);
+bool contains(orbit<T> orb);
+bool contains(nomset<T> subset);
+Return whether the argument is contained in the nominal set.
+
+void insert(orbit<T> orb);
+void insert(T el);
+Insert the given orbit into the nominal set. When given an element, insert the corresponding orbit.
+
+size_t size();
+Number of orbits in the nominal set
+
+typedef typename std::set<orbit<T>>::iterator iterator;
+iterator begin();
+iterator end();
+Iterator over the orbits in the nominal set.
+
+std::set<orbit<T>> orbits;
+Storage of the orbits of the nominal set.
+
+Notes:
+------
+Nomset has equality operators defined on it (== and !=). 
+
+This header provides the following functions for working with nominal sets:
+---------------------------------------------------------------------------
+nomset<T> nomset_union(nomset<T> a, nomset<T> b);
+Calculates the union of two nominal sets a and b.
+
+nomset<T> nomset_intersect(nomset<T> a, nomset<T> b);
+Calculates the intersection of two nominal sets a and b.
+
+nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b);
+Calculates the product of two nominal sets. The output set contains pairs.
+
+inline nomset<singleton> nomset_singleton();
+Constructs a nominal set containing precisely the singleton.
+
+inline nomset<rational> nomset_rationals();
+Constructs a nominal set containing all rational numbers.
+
+nomset<A> nomset_filter(nomset<A> a, F f);
+Given a function or function-like object f returning a boolean, returns the nominal set containing those elements for which f returns true. For correct functioning, f should be an equivariant function.
+
+nomset<B> nomset_map(nomset<A> a, F f);
+Given a function or function-like object f mapping from A to B, return the nominal set resulting from applying f to every element of the input set. For correct functioning, f should be an equivariant function.
+
+Notes:
+------
+The behaviour of nomset_filter and nomset_map is undefined when given non-equivariant functions as input. Furthermore, with regard to side effects those functions should not assume anything about the number of times they are called per orbit of the original set, or which elements will be passed through them, but are guaranteed to be called only a finite number of times.
