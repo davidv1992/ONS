@@ -1,0 +1,31 @@
+  #include <abstract.h>
+
+This header provides the abstract type. It is intended as type argument for abstract orbits. It is a thin wrapper around std::set<rational>. It is needed to leave std::set available for future extension to nominal sets of sets.
+
+This header defines the following class:
+
+class abstract;
+
+It has the following constructors:
+----------------------------------
+abstract();
+Creates an empty abstract.
+
+abstract(std::vector<rational> d);
+Creates an abstract containing the elements of the vector d.
+
+It has the following members:
+-----------------------------
+std::set<rational> data;
+Contained set.
+
+typedef std::set<rational>::iterator iterator;
+iterator begin();
+iterator end();
+size_t size();
+Wrappers for easy access of the corresponding functions of data.
+
+
+Notes:
+------
+This header also provides equality operators (== and !=) on abstract, and support for outputing it via stream I/O through the operator <<.
