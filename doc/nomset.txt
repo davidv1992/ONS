@@ -37,7 +37,8 @@ Storage of the orbits of the nominal set.
 
 Notes:
 ------
-Nomset has equality operators defined on it (== and !=). 
+Nomset has equality operators defined on it (== and !=).
+
 
 This header provides the following functions for working with nominal sets:
 ---------------------------------------------------------------------------
