@@ -329,7 +329,6 @@ namespace OrbitSets {
 		friend bool operator>  <>(variant<TF, Ts...> a, variant<TF, Ts...> b);
 		friend std::ostream& operator<< <>(std::ostream& o, variant<TF, Ts...> a);
 	};
-
 }
 
 #endif

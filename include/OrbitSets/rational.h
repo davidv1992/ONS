@@ -6,11 +6,21 @@
 
 namespace OrbitSets {
 	class rational;
-}
 
-std::ostream &operator<<(std::ostream &o, OrbitSets::rational a);
+	bool operator==(rational a, rational b);
+	bool operator!=(rational a, rational b);
 
-namespace OrbitSets {
+	bool operator<(rational a, rational b);
+	bool operator>(rational a, rational b);
+	bool operator<=(rational a, rational b);
+	bool operator>=(rational a, rational b);
+
+	rational operator+(rational a, rational b);
+	rational operator-(rational a, rational b);
+	rational operator*(rational a, rational b);
+	rational operator/(rational a, rational b);
+
+	std::ostream &operator<<(std::ostream &o, rational a);
 
 	// Class definition
 	class rational {
@@ -61,7 +71,7 @@ namespace OrbitSets {
 		friend rational operator*(rational a, rational b);
 		friend rational operator/(rational a, rational b);
 
-		friend std::ostream &::operator<<(std::ostream &o, rational a);
+		friend std::ostream &operator<<(std::ostream &o, rational a);
 	};
 
 	// Equality operations
@@ -99,11 +109,11 @@ namespace OrbitSets {
 	inline rational operator/(rational a, rational b) {
 		return rational(a.numerator*b.denominator, a.denominator*b.numerator);
 	}
-}
 
-// Output
-inline std::ostream &operator<<(std::ostream &o, OrbitSets::rational a) {
-	return o << a.numerator << "/" << a.denominator;
+	// Output
+	inline std::ostream &operator<<(std::ostream &o, rational a) {
+		return o << a.numerator << "/" << a.denominator;
+	}
 }
 
 #endif
