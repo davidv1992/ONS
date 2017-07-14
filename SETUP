@@ -1,0 +1,3 @@
+OrbitSets is a header-only package. To use it, it is sufficient to ensure that the include directory is in the include search path of the compiler of choice.
+
+The software can be tested with `make test`. The samples can be build using `make`.
