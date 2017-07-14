@@ -4,20 +4,16 @@ CXXFLAGS := $(CXXFLAGS) -std=c++11 -O3 -DNDEBUG
 #Configuration
 INCLUDES := -Iinclude
 
-TEST_OBJS := test.o
-
 .DEFAULT_GOAL := all
 .PHONY: test
 
 #Subdirectory fragments
 MODULES_CLEAN := 
 include tests/make.config
+include samples/make.config
 
 #Targets
-all: testp $(TEST_TARGETS)
-
-testp: $(TEST_OBJS)
-	g++ $(CXXFLAGS) $(LDFLAGS) -o testp $(TEST_OBJS)
+all: $(TEST_TARGETS) $(SAMPLES)
 
 clean:
 	rm -f $(TEST_OBJS)

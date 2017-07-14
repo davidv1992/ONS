@@ -3,12 +3,19 @@
 #include <sstream>
 #include <vector>
 #include <utility>
+#include <sys/time.h>
 
 #include <OrbitSets/nomset.h>
 #include <OrbitSets/eqimap.h>
 
 using namespace std;
 using namespace OrbitSets;
+
+long long get_time_usec() {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec * 1000000 + tv.tv_usec;
+}
 
 template<typename Q, typename A>
 class automaton {
@@ -63,7 +70,7 @@ nomset<pair<Q,Q>> automaton_equiv(automaton<Q,A> aut) {
 }
 
 template<typename Q, typename A>
-automaton<pair<string, abstract>,A> automaton_minimize(automaton<Q,A> aut) {
+automaton<pair<string, abstract>,A> automaton_minimize_a(automaton<Q,A> aut) {
 	auto equiv = automaton_equiv(aut);
 	automaton<pair<string, abstract>, A> res;
 	res.alphabet = aut.alphabet;
@@ -160,7 +167,7 @@ automaton<pair<string, abstract>,A> automaton_minimize(automaton<Q,A> aut) {
 	return res;
 }
 
-template<typename Q, typename A> automaton<pair<int,abstract>,A> automaton_minimize2(automaton<Q,A> aut) {
+template<typename Q, typename A> automaton<pair<int,abstract>,A> automaton_minimize_b(automaton<Q,A> aut) {
 	nomset<pair<int,abstract>> part_domain;
 	eqimap<Q,pair<int,abstract>> partition;
 	
@@ -305,7 +312,79 @@ template<typename Q, typename A> automaton<pair<int,abstract>,A> automaton_minim
 	return res;
 }
 
-int main() {
+void test_aut_small() {
+	using Q = variant<singleton, rational, pair<rational, rational>>;
+	automaton <Q, rational> aut;
+	
+	nomset<Q> S1 = nomset_singleton();
+	nomset<Q> S2 = nomset_rationals();
+	nomset<Q> S3 = nomset_product(nomset_rationals(), nomset_rationals());
+	
+	aut.alphabet = nomset_rationals();
+	aut.states = nomset_union(S1, nomset_union(S2, S3));
+	aut.delta = eqimap<pair<Q,rational>,Q>(nomset_product(aut.states, aut.alphabet), [](pair<Q,rational> in) {
+		Q orig_state = in.first;
+		if (orig_state.index() == 0) {
+			return Q(in.second);
+		} else if (orig_state.index() == 1) {
+			return Q(pair<rational, rational>(orig_state.get<rational>(), in.second));
+		} else {
+			return Q(pair<rational, rational>(orig_state.get<pair<rational,rational>>().second, in.second));
+		}
+	});
+	aut.finalStates = nomset_filter(aut.states, [](Q state){
+		if (state.index() != 2) {
+			return false;
+		} else {
+			pair<rational, rational> s = state.get<pair<rational, rational>>();
+			return s.first > s.second;
+		}
+	});
+	aut.initialState = singleton();
+	
+	long long t_start = get_time_usec();
+	auto min_a = automaton_minimize_a(aut);
+	long long t_mid = get_time_usec();
+	auto min_b = automaton_minimize_b(aut);
+	long long t_end = get_time_usec();
+	
+	cout << "Small testcase: " << endl;
+	cout << "Variant a: " << t_mid - t_start << " usec" << endl;
+	cout << "Variant b: " << t_end - t_mid << " usec" << endl;
+	cout << "Automata sizes: ";
+	cout << aut.states.size() << " " << min_a.states.size() << " " << min_b.states.size() << endl;
+	
+	vector<rational> test1 = {1,2,3,4,5};
+	vector<rational> test2 = {1,3,2,5,4};
+	cout << "Comparing acceptance: " << endl;
+	cout << "Testcase 1: (";
+	bool first = true;
+	for (auto v : test1) {
+		if (first) first = false;
+		else cout << ", ";
+		cout << v;
+	}
+	cout << ")" << endl;
+	
+	cout << "Original: " << aut.accepts(test1) << endl;
+	cout << "Variant a: " << min_a.accepts(test1) << endl;
+	cout << "Variant b: " << min_b.accepts(test1) << endl;
+	
+	cout << "Testcase 2: (";
+	first = true;
+	for (auto v : test1) {
+		if (first) first = false;
+		else cout << ", ";
+		cout << v;
+	}
+	cout << ")" << endl;
+	
+	cout << "Original: " << aut.accepts(test2) << endl;
+	cout << "Variant a: " << min_a.accepts(test2) << endl;
+	cout << "Variant b: " << min_b.accepts(test2) << endl;
+}
+
+void test_aut_large() {
 	using Q = variant<pair<string, singleton>, rational, pair<rational, rational>, pair<pair<rational, rational>,rational>>;
 	automaton <Q, rational> aut;
 	
@@ -345,60 +424,22 @@ int main() {
 		}
 	});
 	
-	auto min = automaton_minimize2(aut);
+	long long t_start = get_time_usec();
+	auto min_a = automaton_minimize_a(aut);
+	long long t_mid = get_time_usec();
+	auto min_b = automaton_minimize_b(aut);
+	long long t_end = get_time_usec();
 	
-	for (auto o : min.states.orbits) {
-		cout << o.getElement();
-		if (min.finalStates.contains(o)) cout << " (accepting)";
-		cout << endl;
-	}
-	
-	cout << aut.states.orbits.size() << " " << min.states.orbits.size() << endl;
+	cout << "Large testcase: " << endl;
+	cout << "Variant a: " << t_mid - t_start << " usec" << endl;
+	cout << "Variant b: " << t_end - t_mid << " usec" << endl;
+	cout << "Automata sizes: ";
+	cout << aut.states.size() << " " << min_a.states.size() << " " << min_b.states.size() << endl;
 }
 
-/*int main() {
-	using Q = variant<singleton, rational, pair<rational, rational>>;
-	automaton <Q, rational> aut;
-	
-	nomset<Q> S1 = nomset_singleton();
-	nomset<Q> S2 = nomset_rationals();
-	nomset<Q> S3 = nomset_product(nomset_rationals(), nomset_rationals());
-	
-	aut.alphabet = nomset_rationals();
-	aut.states = nomset_union(S1, nomset_union(S2, S3));
-	aut.delta = eqimap<pair<Q,rational>,Q>(nomset_product(aut.states, aut.alphabet), [](pair<Q,rational> in) {
-		Q orig_state = in.first;
-		if (orig_state.index() == 0) {
-			return Q(in.second);
-		} else if (orig_state.index() == 1) {
-			return Q(pair<rational, rational>(orig_state.get<rational>(), in.second));
-		} else {
-			return Q(pair<rational, rational>(orig_state.get<pair<rational,rational>>().second, in.second));
-		}
-	});
-	aut.finalStates = nomset_filter(aut.states, [](Q state){
-		if (state.index() != 2) {
-			return false;
-		} else {
-			pair<rational, rational> s = state.get<pair<rational, rational>>();
-			return s.first > s.second;
-		}
-	});
-	aut.initialState = singleton();
-	
-	vector<rational> test1 = {1,2,3,4,5};
-	vector<rational> test2 = {1,3,2,5,4};
-	
-	cout << "Starting tests" << endl;
-	cout << aut.accepts(test1) << endl;
-	cout << aut.accepts(test2) << endl;
-	
-	auto min = automaton_minimize2(aut);
-	
-	cout << min.accepts(test1) << endl;
-	cout << min.accepts(test2) << endl;
-	
-	cout << aut.states.orbits.size() << " " << min.states.orbits.size() << endl;
-
+int main() {
+	test_aut_small();
+	cout << endl;
+	test_aut_large();
 	return 0;
-}*/
+}
