@@ -19,7 +19,6 @@ clean:
 	rm -f $(TEST_OBJS)
 	rm -f $(TEST_OBJS:.o=.d)
 	rm -f $(MODULES_CLEAN)
-	rm -f testp
 
 #Common rules
 .cpp.o:
