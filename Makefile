@@ -21,6 +21,3 @@ clean:
 #Common rules
 .cpp.o:
 	$(CXX) -MD -c $< -o $@ $(INCLUDES) $(CXXFLAGS) $(CPPFLAGS)
-
-#Handle dependency files
--include $(TEST_OBJS:.o=.d)
