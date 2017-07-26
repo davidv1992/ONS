@@ -20,5 +20,6 @@ namespace OrbitSets {
 #include <OrbitSets/impl/orbit_ilabel.h>
 #include <OrbitSets/impl/orbit_pair.h>
 #include <OrbitSets/impl/orbit_variant.h>
+#include <OrbitSets/impl/orbit_vector.h>
 
 #endif

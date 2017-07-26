@@ -37,8 +37,13 @@ int main() {
 	orbit<pair<pair<string, abstract>, pair<abstract, abstract>>> t;
 	orbit<pair<variant<rational>, abstract>> u;
 	
+	// vector
+	orbit<vector<abstract>> v;
+	orbit<vector<rational>> w;
+	orbit<vector<singleton>> x;
+	
 	// variant
-	orbit<variant<abstract, rational, singleton, pair<int, abstract>, pair<string, abstract>, pair<abstract, abstract>, variant<rational>>> v;
+	orbit<variant<abstract, rational, singleton, pair<int, abstract>, pair<string, abstract>, pair<abstract, abstract>, variant<rational>>> y;
 	
 	return 0;
 }

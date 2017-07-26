@@ -1,6 +1,6 @@
   #include <orbit.h>
 
-This header provides the orbit class, representing a single orbit of a nominal set. It is a templated class whose type argument provides the structure of the elements in the orbit. It is currently implemented through explicit specialization, and provides support for the types abstract, singleton, rational, pair<int,T>, pair<string,T>, pair<T,T'> and variant<T1,...,Tn>. In the compound types, the type arguments need to again be supported by orbits.
+This header provides the orbit class, representing a single orbit of a nominal set. It is a templated class whose type argument provides the structure of the elements in the orbit. It is currently implemented through explicit specialization, and provides support for the types abstract, singleton, rational, pair<int,T>, pair<string,T>, pair<T,T'>, vector<T> and variant<T1,...,Tn>. In the compound types, the type arguments need to again be supported by orbits.
 
 This header defines the following class:
 
