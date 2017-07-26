@@ -16,8 +16,6 @@ include samples/make.config
 all: $(TEST_TARGETS) $(SAMPLES)
 
 clean:
-	rm -f $(TEST_OBJS)
-	rm -f $(TEST_OBJS:.o=.d)
 	rm -f $(MODULES_CLEAN)
 
 #Common rules
