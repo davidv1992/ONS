@@ -3,6 +3,21 @@
 
 #include <vector>
 
+namespace std {
+	template<typename A>
+	std::ostream &operator<<(std::ostream &o, std::vector<A> v) {
+		bool first = true;
+		o << "[";
+		for (auto e : v) {
+			if (first) first = false;
+			else o << ", ";
+			o << e;
+		}
+		o << "]";
+		return o;
+	}
+}
+
 namespace OrbitSets {
 	template<typename T>
 	bool operator==(orbit<std::vector<T>> a, orbit<std::vector<T>> b) {
@@ -65,6 +80,13 @@ namespace OrbitSets {
 		orbit() {
 			inner = NULL;
 		}
+		orbit(const orbit<std::vector<T>> &orig) {
+			if (orig.inner == NULL) {
+				inner = NULL;
+			} else {
+				inner = new orbit<std::pair<std::vector<T>,T>>(*orig.inner);
+			}
+		}
 		~orbit() {
 			if (inner != NULL) delete inner;
 		}
@@ -88,7 +110,7 @@ namespace OrbitSets {
 			return inner->getSeqFromElement(inEl);
 		}
 		orbit(std::vector<T> el) {
-			if (el.size == 0) {
+			if (el.size() == 0) {
 				inner = NULL;
 			} else {
 				std::pair<std::vector<T>, T> inEl = {el, el.back()};

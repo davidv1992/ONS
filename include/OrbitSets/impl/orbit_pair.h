@@ -6,9 +6,11 @@
 #include <cassert>
 #include <iostream>
 
-template<typename A, typename B>
-std::ostream &operator<<(std::ostream &o, std::pair<A,B> p) {
-	return o << "(" << p.first << "," << p.second << ")";
+namespace std {
+	template<typename A, typename B>
+	std::ostream &operator<<(std::ostream &o, std::pair<A,B> p) {
+		return o << "(" << p.first << "," << p.second << ")";
+	}
 }
 
 namespace OrbitSets {
