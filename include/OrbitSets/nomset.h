@@ -25,17 +25,12 @@ namespace OrbitSets {
 				orbits.insert(orbit<Q>(o));
 			}
 		}
-	
-		bool contains(T el) {
-			for (auto o: orbits) {
-				if (o.isElement(el)) {
-					return true;
-				}
-			}
-			return false;
-		}
+		
 		bool contains(orbit<T> orb) {
 			return orbits.count(orb) != 0;
+		}
+		bool contains(T el) {
+			return contains(orbit<T>(el));
 		}
 		bool contains(nomset<T> subset) {
 			if (subset.orbits.size() > orbits.size())
