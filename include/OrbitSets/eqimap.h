@@ -40,6 +40,14 @@ namespace OrbitSets {
 				mapData[o] = std::pair<orbit<Trng>,std::vector<bool>>(outo, mask);
 			}
 		}
+		
+		bool inDomain(Tdom in) {
+			orbit<Tdom> inOrbit(in);
+			return mapData.count(inOrbit) != 0;
+		}
+		bool inDomain(orbit<Tdom> inOrbit) {
+			return mapData.count(inOrbit) != 0;
+		}
 
 		Trng operator()(Tdom in) const {
 			orbit<Tdom> inOrbit(in);

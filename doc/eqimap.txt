@@ -24,6 +24,10 @@ Evaluate the function for a specific input. If the input is not in the domain, t
 std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>> mapData;
 Storage for the map information. The std::vector<bool> is used to indicate which of the support of the input element to keep for the output element. Given a sorted sequence that is the least support of the input, the i-th element of the std::vector<bool> indicates whether to keep (true) or discard(false) this element in the least support of the output.
 
+bool inDomain(Tdom in);
+bool inDomain(orbit<Tdom> in);
+Test whether a given element or orbit is in the domain of the eqimap.
+
 void add(Tdom in, Trng out);
 Expand or change the equivariant map to map in to out.
 
