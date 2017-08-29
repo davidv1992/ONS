@@ -19,12 +19,12 @@ namespace OrbitSets {
 		inline unsigned prodCount(unsigned A, unsigned B) {
 			static std::vector<std::vector<unsigned>>prodTable(1,std::vector<unsigned>(1,1));
 			if (!(prodTable.size() > A && prodTable[0].size() > B)) {
-				A++;
-				B++;
+				unsigned Alim = std::max(A+1,(unsigned)prodTable.size());
+				unsigned Blim = std::max(B+1,(unsigned)prodTable[0].size());
 		
-				if (prodTable[0].size() < B) {
+				if (prodTable[0].size() < Blim) {
 					for (unsigned i=0; i<prodTable.size(); i++) {
-						for (unsigned j=prodTable[i].size(); j<B; j++) {
+						for (unsigned j=prodTable[i].size(); j<Blim; j++) {
 							unsigned res = 0;
 							if (i > 0) res += prodTable[i-1][j];
 							if (j > 0) res += prodTable[i][j-1];
@@ -34,9 +34,9 @@ namespace OrbitSets {
 					}
 				}
 
-				for (unsigned i=prodTable.size(); i<A; i++) {
-					prodTable.push_back(std::vector<unsigned>(B));
-					for (unsigned j=0; j<B; j++) {
+				for (unsigned i=prodTable.size(); i<Alim; i++) {
+					prodTable.push_back(std::vector<unsigned>(Blim));
+					for (unsigned j=0; j<Blim; j++) {
 						unsigned res = 0;
 						if (i > 0) res += prodTable[i-1][j];
 						if (j > 0) res += prodTable[i][j-1];
@@ -44,9 +44,6 @@ namespace OrbitSets {
 						prodTable[i][j] = res;
 					}
 				}
-		
-				A--;
-				B--;
 			}
 			return prodTable[A][B];
 		}
