@@ -41,11 +41,11 @@ namespace OrbitSets {
 			}
 		}
 		
-		bool inDomain(Tdom in) {
+		bool inDomain(Tdom in) const {
 			orbit<Tdom> inOrbit(in);
 			return mapData.count(inOrbit) != 0;
 		}
-		bool inDomain(orbit<Tdom> inOrbit) {
+		bool inDomain(orbit<Tdom> inOrbit) const {
 			return mapData.count(inOrbit) != 0;
 		}
 

@@ -26,13 +26,13 @@ namespace OrbitSets {
 			}
 		}
 		
-		bool contains(orbit<T> orb) {
+		bool contains(orbit<T> orb) const {
 			return orbits.count(orb) != 0;
 		}
-		bool contains(T el) {
+		bool contains(T el) const {
 			return contains(orbit<T>(el));
 		}
-		bool contains(nomset<T> subset) {
+		bool contains(nomset<T> subset) const {
 			if (subset.orbits.size() > orbits.size())
 				return false;
 			if (subset.orbits.size() * 10 > orbits.size()) {
@@ -74,7 +74,7 @@ namespace OrbitSets {
 			return orbits.end();
 		}
 	
-		size_t size() {
+		size_t size() const {
 			return orbits.size();
 		}
 	};

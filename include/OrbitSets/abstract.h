@@ -29,7 +29,7 @@ namespace OrbitSets {
 			return data.end();
 		}
 	
-		size_t size() {
+		size_t size() const {
 			return data.size();
 		}
 	};
