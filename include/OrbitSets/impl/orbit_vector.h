@@ -90,6 +90,15 @@ namespace OrbitSets {
 		~orbit() {
 			if (inner != NULL) delete inner;
 		}
+		orbit<std::vector<T>> &operator=(const orbit<std::vector<T>> &orig) {
+			if (inner != NULL) delete inner;
+			if (orig.inner == NULL) {
+				inner = NULL;
+			} else {
+				inner = new orbit<std::pair<std::vector<T>,T>>(*orig.inner);
+			}
+			return *this;
+		}
 		int supportSize() const {
 			if (inner == NULL) return 0;
 			return inner->supportSize();
