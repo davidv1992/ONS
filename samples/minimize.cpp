@@ -102,7 +102,7 @@ automaton<pair<string, abstract>,A> automaton_minimize_a(automaton<Q,A> aut) {
 								curMask[i_B] = true;
 							i_A++;
 							i_B++;
-						} else if (seqRef[i_A] < seqRef[i_B]) {
+						} else if (seqRef[i_A] < seqCur[i_B]) {
 							i_A++;
 						} else {
 							i_B++;
