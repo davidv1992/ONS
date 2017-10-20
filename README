@@ -1,3 +1,3 @@
-This software aims to be an implementation of nominal sets using orbit representations. Specifically, a set is represented as a collection of orbits, which then describe the individual elements. Currently, only the total order data symmetry is supported. This software is still under active development, and not stable. It probably still contains numerous bugs, and no guarantee is made with respect to stability of interfaces.
+ONS is a library implementing calculations with nominal sets over the total order symmetry. Its implementation uses representation theory of nominal orbits, representing nominal sets through their collection of orbits. This provides predictable, fast performance for calculations with nominal sets, which is useful in applications.
 
 Full documentation of the exposed interfaces by this package can be found in the doc/ directory.
