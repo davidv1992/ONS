@@ -57,6 +57,14 @@ namespace OrbitSets {
 			numerator = a;
 			denominator = 1;
 		}
+		
+		long long getNumerator() {
+			return numerator;
+		}
+		
+		long long getDenominator() {
+			return denominator;
+		}
 
 		friend bool operator==(rational a, rational b);
 		friend bool operator!=(rational a, rational b);
