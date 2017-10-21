@@ -2,4 +2,6 @@ ONS is a library implementing calculations with nominal sets over the total orde
 
 Full documentation of the exposed interfaces by this package can be found in the doc/ directory.
 
-Code for comparing ONS performance at minimising automata to LOIS and NLambda can be found at https://github.com/davidv1992/ONS_Minimise
+Code for comparing ONS performance at minimising automata to LOIS and NLambda can be found at https://github.com/davidv1992/ONS_Minimise.
+
+Code for comparing learning performance can be found at https://gitlab.science.ru.nl/moerman/nominal-learning-ons/.
