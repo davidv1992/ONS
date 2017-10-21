@@ -58,11 +58,11 @@ namespace OrbitSets {
 			denominator = 1;
 		}
 		
-		long long getNumerator() {
+		long long getNumerator() const {
 			return numerator;
 		}
 		
-		long long getDenominator() {
+		long long getDenominator() const {
 			return denominator;
 		}
 
