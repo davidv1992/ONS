@@ -1,3 +1,5 @@
 ONS is a library implementing calculations with nominal sets over the total order symmetry. Its implementation uses representation theory of nominal orbits, representing nominal sets through their collection of orbits. This provides predictable, fast performance for calculations with nominal sets, which is useful in applications.
 
 Full documentation of the exposed interfaces by this package can be found in the doc/ directory.
+
+Code for comparing ONS performance at minimising automata to LOIS and NLambda can be found at https://github.com/davidv1992/ONS_Minimise
