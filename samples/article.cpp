@@ -1,10 +1,10 @@
-#include <OrbitSets/rational.h>
-#include <OrbitSets/orbit.h>
-#include <OrbitSets/nomset.h>
+#include <ONS/rational.h>
+#include <ONS/orbit.h>
+#include <ONS/nomset.h>
 #include <iostream>
 
 using namespace std;
-using namespace OrbitSets;
+using namespace ONS;
 
 int main() {
 	// Create the nominal set with all rational numbers.

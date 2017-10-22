@@ -1,13 +1,13 @@
 #include <utility>
 
-#include <OrbitSets/orbit.h>
-#include <OrbitSets/abstract.h>
-#include <OrbitSets/rational.h>
-#include <OrbitSets/singleton.h>
-#include <OrbitSets/variant.h>
+#include <ONS/orbit.h>
+#include <ONS/abstract.h>
+#include <ONS/rational.h>
+#include <ONS/singleton.h>
+#include <ONS/variant.h>
 
 using namespace std;
-using namespace OrbitSets;
+using namespace ONS;
 
 int main() {
 	// Simple types

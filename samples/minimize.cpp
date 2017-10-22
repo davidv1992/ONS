@@ -5,11 +5,11 @@
 #include <utility>
 #include <sys/time.h>
 
-#include <OrbitSets/nomset.h>
-#include <OrbitSets/eqimap.h>
+#include <ONS/nomset.h>
+#include <ONS/eqimap.h>
 
 using namespace std;
-using namespace OrbitSets;
+using namespace ONS;
 
 long long get_time_usec() {
 	struct timeval tv;

@@ -1,9 +1,9 @@
-#ifndef ORBSETS_ORBIT_VARIANT
-#define ORBSETS_ORBIT_VARIANT
+#ifndef ONS_ORBIT_VARIANT
+#define ONS_ORBIT_VARIANT
 
-#include <OrbitSets/variant.h>
+#include <ONS/variant.h>
 
-namespace OrbitSets {
+namespace ONS {
 	
 	namespace orbvariant_internal {
 		template<typename... Ts>

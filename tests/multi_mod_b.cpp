@@ -1,11 +1,11 @@
 #include <iostream>
 #include <utility>
 
-#include <OrbitSets/nomset.h>
-#include <OrbitSets/rational.h>
+#include <ONS/nomset.h>
+#include <ONS/rational.h>
 
 using namespace std;
-using namespace OrbitSets;
+using namespace ONS;
 
 nomset<pair<rational,rational>> f();
 

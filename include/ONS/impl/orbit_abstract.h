@@ -1,9 +1,9 @@
-#ifndef ORBSETS_ORBIT_ABSTRACT
-#define ORBSETS_ORBIT_ABSTRACT
+#ifndef ONS_ORBIT_ABSTRACT
+#define ONS_ORBIT_ABSTRACT
 
-#include <OrbitSets/abstract.h>
+#include <ONS/abstract.h>
 
-namespace OrbitSets {
+namespace ONS {
 	template<>
 	class orbit<abstract> {
 	private:

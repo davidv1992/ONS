@@ -1,9 +1,9 @@
-#ifndef ORBSET_ORBIT_RATIONAL
-#define ORBSET_ORBIT_RATIONAL
+#ifndef ONS_ORBIT_RATIONAL
+#define ONS_ORBIT_RATIONAL
 
 #include <cassert>
 
-namespace OrbitSets {
+namespace ONS {
 
 	template<typename T>
 	class nomset;

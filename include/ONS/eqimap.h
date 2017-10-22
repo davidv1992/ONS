@@ -1,13 +1,13 @@
-#ifndef ORBSETS_EQIMAP
-#define ORBSETS_EQIMAP
+#ifndef ONS_EQIMAP
+#define ONS_EQIMAP
 
 #include <map>
 #include <vector>
 #include <stdexcept>
-#include <OrbitSets/rational.h>
-#include <OrbitSets/orbit.h>
+#include <ONS/rational.h>
+#include <ONS/orbit.h>
 
-namespace OrbitSets {
+namespace ONS {
 
 	template<typename Tdom, typename Trng>
 	class eqimap {

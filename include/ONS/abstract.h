@@ -1,12 +1,12 @@
-#ifndef ORBSETS_ABSTRACT
-#define ORBSETS_ABSTRACT
+#ifndef ONS_ABSTRACT
+#define ONS_ABSTRACT
 
 #include <set>
 #include <vector>
 #include <iostream>
-#include <OrbitSets/rational.h>
+#include <ONS/rational.h>
 
-namespace OrbitSets {
+namespace ONS {
 
 	class abstract {
 	public:
@@ -41,7 +41,7 @@ namespace OrbitSets {
 		return a.data != b.data;
 	}
 
-	inline std::ostream& operator<<(std::ostream& o, OrbitSets::abstract el) {
+	inline std::ostream& operator<<(std::ostream& o, ONS::abstract el) {
 		o << "{";
 		bool isFirst = true;
 		for (auto r : el.data) {

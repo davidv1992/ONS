@@ -1,11 +1,11 @@
-#ifndef ORBSETS_ORBIT_LABEL
-#define ORBSETS_ORBIT_LABEL
+#ifndef ONS_ORBIT_LABEL
+#define ONS_ORBIT_LABEL
 
 #include <utility>
 #include <string>
 #include <cassert>
 
-namespace OrbitSets {
+namespace ONS {
 
 	template<typename A>
 	bool operator==(orbit<std::pair<std::string,A>> a, orbit<std::pair<std::string,A>> b) {

@@ -1,5 +1,5 @@
-#ifndef ORBSETS_ORBIT_PAIR
-#define ORBSETS_ORBIT_PAIR
+#ifndef ONS_ORBIT_PAIR
+#define ONS_ORBIT_PAIR
 
 #include <utility>
 #include <string>
@@ -13,7 +13,7 @@ namespace std {
 	}
 }
 
-namespace OrbitSets {
+namespace ONS {
 	
 	namespace orbpair_internal {
 		inline unsigned prodCount(unsigned A, unsigned B) {

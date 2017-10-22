@@ -1,11 +1,11 @@
 #include <utility>
 
-#include <OrbitSets/orbit.h>
-#include <OrbitSets/eqimap.h>
-#include <OrbitSets/rational.h>
+#include <ONS/orbit.h>
+#include <ONS/eqimap.h>
+#include <ONS/rational.h>
 
 using namespace std;
-using namespace OrbitSets;
+using namespace ONS;
 
 int main() {
 	eqimap<vector<rational>,vector<rational>> test;

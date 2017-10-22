@@ -1,10 +1,10 @@
-#ifndef ORBSETS_RATIONAL
-#define ORBSETS_RATIONAL
+#ifndef ONS_RATIONAL
+#define ONS_RATIONAL
 
 #include <cstdlib>
 #include <iostream>
 
-namespace OrbitSets {
+namespace ONS {
 	class rational;
 
 	bool operator==(rational a, rational b);

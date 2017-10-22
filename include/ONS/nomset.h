@@ -1,15 +1,15 @@
-#ifndef ORBSETS_NOMSET
-#define ORBSETS_NOMSET
+#ifndef ONS_NOMSET
+#define ONS_NOMSET
 
 #include <set>
 #include <utility>
 #include <string>
 
-#include <OrbitSets/singleton.h>
-#include <OrbitSets/rational.h>
-#include <OrbitSets/orbit.h>
+#include <ONS/singleton.h>
+#include <ONS/rational.h>
+#include <ONS/orbit.h>
 
-namespace OrbitSets {
+namespace ONS {
 
 	template<typename T>
 	class nomset {

@@ -1,5 +1,5 @@
-#ifndef ORBSETS_VARIANT
-#define ORBSETS_VARIANT
+#ifndef ONS_VARIANT
+#define ONS_VARIANT
 
 #include <type_traits>
 #include <typeinfo>
@@ -7,7 +7,7 @@
 #include <cassert>
 #include <iostream>
 
-namespace OrbitSets {
+namespace ONS {
 	
 	namespace variant_internal {
 		template<typename... Ts>

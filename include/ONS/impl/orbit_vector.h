@@ -1,5 +1,5 @@
-#ifndef ORBSETS_ORBIT_VECTOR
-#define ORBSETS_ORBIT_VECTOR
+#ifndef ONS_ORBIT_VECTOR
+#define ONS_ORBIT_VECTOR
 
 #include <vector>
 
@@ -18,7 +18,7 @@ namespace std {
 	}
 }
 
-namespace OrbitSets {
+namespace ONS {
 	template<typename T>
 	bool operator==(orbit<std::vector<T>> a, orbit<std::vector<T>> b) {
 		if (a.inner == b.inner) return true;

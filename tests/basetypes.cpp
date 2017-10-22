@@ -1,10 +1,10 @@
-#include <OrbitSets/rational.h>
-#include <OrbitSets/variant.h>
-#include <OrbitSets/singleton.h>
-#include <OrbitSets/abstract.h>
+#include <ONS/rational.h>
+#include <ONS/variant.h>
+#include <ONS/singleton.h>
+#include <ONS/abstract.h>
 
 using namespace std;
-using namespace OrbitSets;
+using namespace ONS;
 
 int main() {
 	// Rationals

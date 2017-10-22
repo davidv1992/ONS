@@ -1,9 +1,9 @@
-#ifndef ORBSETS_ORBIT_SINGLETON
-#define ORBSETS_ORBIT_SINGLETON
+#ifndef ONS_ORBIT_SINGLETON
+#define ONS_ORBIT_SINGLETON
 
-#include <OrbitSets/singleton.h>
+#include <ONS/singleton.h>
 
-namespace OrbitSets {
+namespace ONS {
 
 	template<typename T>
 	class nomset;
