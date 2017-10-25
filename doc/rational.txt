@@ -14,7 +14,12 @@ Create a rational with the default value of 0
 rational(int a)
 Create a rational with the value of the integer a.
 
+It has the following members:
+-----------------------------
+long long getNumerator()
+long long getDenominator()
+Get the numerator or denominator of the rational.
 
-It has no further member functions, all further functionality is provided through operators. The header defines the usual mathematics operators (+,-,*,/) for rational numbers, as well as a total ordering on them (==, !=, <, >, <= and >=).
+All further functionality is provided through operators. The header defines the usual mathematics operators (+,-,*,/) for rational numbers, as well as a total ordering on them (==, !=, <, >, <= and >=).
 
 It also defines stream I/O output of rationals, with an operator << on ostreams.
