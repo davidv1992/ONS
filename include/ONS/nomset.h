@@ -145,6 +145,57 @@ namespace ONS {
 		}
 		return c;
 	}
+	
+	template<typename T>
+	nomset<T> nomset_minus(nomset<T> const &a, nomset<T> const &b) {
+		nomset<T> c;
+		auto ait = a.orbits.cbegin();
+		auto bit = b.orbits.cbegin();
+		while (ait != a.orbits.cend() && bit != b.orbits.cend()) {
+			if (*ait == *bit) {
+				ait++;
+				bit++;
+			} else if (*ait < *bit) {
+				c.orbits.insert(c.orbits.end(), *ait);
+				ait++;
+			} else {
+				bit++;
+			}
+		}
+		while (ait != a.orbits.cend()) {
+			c.orbits.insert(c.orbits.end(), *ait);
+			ait++;
+		}
+		return c;
+	}
+	
+	template<typename T>
+	nomset<T> nomset_symmetric_difference(nomset<T> const &a, nomset<T> const &b) {
+		nomset<T> c;
+		auto ait = a.orbits.cbegin();
+		auto bit = b.orbits.cbegin();
+		while (ait != a.orbits.cend() && bit != b.orbits.cend()) {
+			if (*ait == *bit) {
+				ait++;
+				bit++;
+			} else if (*ait < *bit) {
+				c.orbits.insert(c.orbits.end(), *ait);
+				ait++;
+			} else {
+				c.orbits.insert(c.orbits.end(), *bit);
+				bit++;
+			}
+		}
+		while (ait != a.orbits.cend()) {
+			c.orbits.insert(c.orbits.end(), *ait);
+			ait++;
+		}
+		while (bit != b.orbits.cend()) {
+			c.orbits.insert(c.orbits.end(), *bit);
+			bit++;
+		}
+		return c;
+	}
 
 	template<typename A, typename B>
 	nomset<std::pair<A,B>> nomset_product(nomset<A> const &a, nomset<B> const &b) {

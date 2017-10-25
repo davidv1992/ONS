@@ -51,6 +51,12 @@ Calculates the union of two nominal sets a and b.
 nomset<T> nomset_intersect(nomset<T> const &a, nomset<T> const &b);
 Calculates the intersection of two nominal sets a and b.
 
+nomset<T> nomset_minus(nomset<T> const &a, nomset<T> const &b);
+Calculates the difference a minus b.
+
+nomset<T> nomset_symmetric_difference(nomset<T> const &a, nomset<T> const &b)
+Calculate the symmetric difference of the nominal sets a and b.
+
 nomset<std::pair<A,B>> nomset_product(nomset<A> const &a, nomset<B> const &b);
 Calculates the product of two nominal sets. The output set contains pairs.
 
