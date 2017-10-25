@@ -84,6 +84,8 @@ namespace ONS {
 					mask.push_back(false);
 				}
 			}
+			if (out_i < outSeq.size())
+				throw std::range_error("Input does not give equivariant map");
 			mapData[ino] = std::pair<orbit<Trng>,std::vector<bool>>(outo, mask);
 		}
 	
