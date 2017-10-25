@@ -15,6 +15,7 @@ namespace ONS {
 	class nomset {
 	public:
 		typedef typename std::set<orbit<T>>::iterator iterator;
+		typedef typename std::set<orbit<T>>::const_iterator const_iterator;
 	
 		std::set<orbit<T>> orbits;
 	
@@ -72,6 +73,14 @@ namespace ONS {
 	
 		iterator end() {
 			return orbits.end();
+		}
+		
+		const_iterator cbegin() const {
+			return orbits.cbegin();
+		}
+		
+		const_iterator cend() const {
+			return orbits.cend();
 		}
 	
 		size_t size() const {

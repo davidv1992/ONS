@@ -28,9 +28,12 @@ size_t size();
 Number of orbits in the nominal set
 
 typedef typename std::set<orbit<T>>::iterator iterator;
+typedef typename std::set<orbit<T>>::const_iterator const_iterator;
 iterator begin();
 iterator end();
-Iterator over the orbits in the nominal set.
+const_iterator cbegin();
+const_iterator cend();
+Iterators over the orbits in the nominal set.
 
 std::set<orbit<T>> orbits;
 Storage of the orbits of the nominal set.

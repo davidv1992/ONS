@@ -32,8 +32,11 @@ void add(Tdom in, Trng out);
 Expand or change the equivariant map to map in to out.
 
 typedef typename std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>>::iterator iterator;
+typedef typename std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>>::const_iterator const_iterator;
 iterator begin();
 iterator end();
+const_iterator cbegin();
+const_iterator cend();
 std::pair<orbit<Trng>, std::vector<bool>> &operator[];
 Wrappers for easy use of the corresponding functions of mapData.
 

@@ -13,6 +13,7 @@ namespace ONS {
 	class eqimap {
 	public:
 		typedef typename std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>>::iterator iterator;
+		typedef typename std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>>::const_iterator const_iterator;
 
 		std::map<orbit<Tdom>, std::pair<orbit<Trng>, std::vector<bool>>> mapData;
 		eqimap() {}
@@ -99,6 +100,14 @@ namespace ONS {
 	
 		iterator end() {
 			return mapData.end();
+		}
+		
+		const_iterator cbegin() const {
+			return mapData.cbegin();
+		}
+		
+		const_iterator cend() const {
+			return mapData.cend();
 		}
 	};
 
