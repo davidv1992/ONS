@@ -45,13 +45,13 @@ Nomset has equality operators defined on it (== and !=).
 
 This header provides the following functions for working with nominal sets:
 ---------------------------------------------------------------------------
-nomset<T> nomset_union(nomset<T> a, nomset<T> b);
+nomset<T> nomset_union(nomset<T> const &a, nomset<T> const &b);
 Calculates the union of two nominal sets a and b.
 
-nomset<T> nomset_intersect(nomset<T> a, nomset<T> b);
+nomset<T> nomset_intersect(nomset<T> const &a, nomset<T> const &b);
 Calculates the intersection of two nominal sets a and b.
 
-nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b);
+nomset<std::pair<A,B>> nomset_product(nomset<A> const &a, nomset<B> const &b);
 Calculates the product of two nominal sets. The output set contains pairs.
 
 inline nomset<singleton> nomset_singleton();
@@ -60,10 +60,10 @@ Constructs a nominal set containing precisely the singleton.
 inline nomset<rational> nomset_rationals();
 Constructs a nominal set containing all rational numbers.
 
-nomset<A> nomset_filter(nomset<A> a, F f);
+nomset<A> nomset_filter(nomset<A> const &a, F f);
 Given a function or function-like object f returning a boolean, returns the nominal set containing those elements for which f returns true. For correct functioning, f should be an equivariant function.
 
-nomset<B> nomset_map(nomset<A> a, F f);
+nomset<B> nomset_map(nomset<A> const &a, F f);
 Given a function or function-like object f mapping from A to B, return the nominal set resulting from applying f to every element of the input set. For correct functioning, f should be an equivariant function.
 
 Notes:

@@ -128,11 +128,11 @@ namespace ONS {
 	}
 
 	template<typename T>
-	nomset<T> nomset_intersect(nomset<T> a, nomset<T> b) {
+	nomset<T> nomset_intersect(nomset<T> const &a, nomset<T> const &b) {
 		nomset<T> c;
-		auto ait = a.orbits.begin();
-		auto bit = b.orbits.begin();
-		while (ait != a.orbits.end() && bit != b.orbits.end()) {
+		auto ait = a.orbits.cbegin();
+		auto bit = b.orbits.cbegin();
+		while (ait != a.orbits.cend() && bit != b.orbits.cend()) {
 			if (*ait == *bit) {
 				c.orbits.insert(c.orbits.end(), *ait);
 				ait++;
@@ -147,10 +147,10 @@ namespace ONS {
 	}
 
 	template<typename A, typename B>
-	nomset<std::pair<A,B>> nomset_product(nomset<A> a, nomset<B> b) {
+	nomset<std::pair<A,B>> nomset_product(nomset<A> const &a, nomset<B> const &b) {
 		nomset<std::pair<A,B>> c;
-		for (auto aorb: a.orbits) {
-			for (auto borb: b.orbits) {
+		for (const auto &aorb: a.orbits) {
+			for (const auto &borb: b.orbits) {
 				for (unsigned i = 0; i<orbpair_internal::prodCount(aorb.supportSize(), borb.supportSize()); i++) {
 					c.orbits.insert(c.orbits.end(), orbit<std::pair<A,B>>(aorb,borb,i));
 				}
@@ -172,9 +172,9 @@ namespace ONS {
 	}
 
 	template<typename A, typename F>
-	nomset<A> nomset_filter(nomset<A> a, F f) {
+	nomset<A> nomset_filter(nomset<A> const &a, F f) {
 		nomset<A> c;
-		for (auto o : a.orbits) {
+		for (const auto &o : a.orbits) {
 			if (f(o.getElement()))
 				c.orbits.insert(c.orbits.end(), o);
 		}
@@ -182,9 +182,9 @@ namespace ONS {
 	}
 
 	template<typename A, typename B, typename F>
-	nomset<B> nomset_map(nomset<A> a, F f) {
+	nomset<B> nomset_map(nomset<A> const &a, F f) {
 		nomset<B> c;
-		for (auto o : a.orbits) {
+		for (const auto &o : a.orbits) {
 			c.orbits.insert(orbit<B>(f(o.getElement())));
 		}
 		return c;

@@ -257,7 +257,7 @@ namespace ONS {
 		friend bool operator!= <>(orbit<std::pair<A,B>> a, orbit<std::pair<A,B>>b);
 		friend bool operator<  <>(orbit<std::pair<A,B>> a, orbit<std::pair<A,B>>b);
 		friend bool operator>  <>(orbit<std::pair<A,B>> a, orbit<std::pair<A,B>>b);
-		template<typename C, typename D> friend nomset<std::pair<C,D>> nomset_product(nomset<C> a, nomset<D> b);
+		template<typename C, typename D> friend nomset<std::pair<C,D>> nomset_product(nomset<C> const &a, nomset<D> const &b);
 	};
 	
 }
