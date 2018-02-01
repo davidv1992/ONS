@@ -14,10 +14,11 @@ namespace ONS {
 
 // Orbit types
 #include <ONS/impl/orbit_singleton.h>
+#include <ONS/impl/orbit_trivial.h>
 #include <ONS/impl/orbit_rational.h>
 #include <ONS/impl/orbit_abstract.h>
-#include <ONS/impl/orbit_label.h>
-#include <ONS/impl/orbit_ilabel.h>
+//#include <ONS/impl/orbit_label.h>
+//#include <ONS/impl/orbit_ilabel.h>
 #include <ONS/impl/orbit_pair.h>
 #include <ONS/impl/orbit_variant.h>
 #include <ONS/impl/orbit_vector.h>

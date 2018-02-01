@@ -11,7 +11,10 @@ nomset<T>();
 Create an empty nominal set.
 
 nomset<T>(nomset<Q> orig);
-Create a nomset with type converted from Q to T, provided Q and T are compatible types. Primarily usefull when dealing with nomsets containing variants.
+Create a nomset with type converted from Q to T, provided Q and T are compatible types. Primarily useful when dealing with nomsets containing variants.
+
+nomset<T>(T el);
+Create a nomset containing the element el and its orbit. Useful when constructing individual orbits.
 
 It has the following members:
 -----------------------------

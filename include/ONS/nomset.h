@@ -26,6 +26,9 @@ namespace ONS {
 				orbits.insert(orbit<Q>(o));
 			}
 		}
+		nomset(T el) {
+			orbits.insert(orbit<T>(el));
+		}
 		
 		bool contains(orbit<T> orb) const {
 			return orbits.count(orb) != 0;

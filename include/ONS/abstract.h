@@ -21,6 +21,12 @@ namespace ONS {
 				data.insert(e);
 			}
 		}
+		
+		abstract(int n) {
+			for (int i=0; i<n; i++) {
+				data.insert(rational(i));
+			}
+		}
 	
 		iterator begin() {
 			return data.begin();

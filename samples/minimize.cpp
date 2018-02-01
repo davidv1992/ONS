@@ -143,7 +143,7 @@ automaton<pair<string, abstract>,A> automaton_minimize_a(automaton<Q,A> aut) {
 		ostringstream labelStream;
 		labelStream << "O" << curLabel;
 		curLabel++;
-		orbit<pair<string, abstract>> newOrbit = orbit<pair<string, abstract>>(labelStream.str(), orbit<abstract>(tgtSupSize));
+		orbit<pair<string, abstract>> newOrbit = orbit<pair<string,abstract>>({labelStream.str(), abstract(tgtSupSize)});
 		res.states.orbits.insert(newOrbit);
 		partition.mapData[o] = {newOrbit, mask};
 	}
@@ -171,8 +171,8 @@ template<typename Q, typename A> automaton<pair<int,abstract>,A> automaton_minim
 	nomset<pair<int,abstract>> part_domain;
 	eqimap<Q,pair<int,abstract>> partition;
 	
-	part_domain.orbits.insert(orbit<pair<int,abstract>>(1, orbit<abstract>(0)));
-	part_domain.orbits.insert(orbit<pair<int,abstract>>(2, orbit<abstract>(0)));
+	part_domain.insert({1,abstract(0)});
+	part_domain.insert({2,abstract(0)});
 	partition = eqimap<Q,pair<int,abstract>>(aut.states, [&](Q el) {
 		if (aut.finalStates.contains(el)) {
 			return pair<int, abstract>(1, abstract());
@@ -281,7 +281,7 @@ template<typename Q, typename A> automaton<pair<int,abstract>,A> automaton_minim
 				if (b) tgtSuppSize++;
 			}
 			
-			orbit<pair<int, abstract>> newOrbit(next_dom_count, orbit<abstract>(tgtSuppSize));
+			orbit<pair<int, abstract>> newOrbit({next_dom_count, abstract(tgtSuppSize)});
 			next_dom_count++;
 			next_domain.orbits.insert(newOrbit);
 			next_partition.mapData[o] = {newOrbit, mask};

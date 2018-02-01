@@ -14,6 +14,9 @@ Creates an empty abstract.
 abstract(std::vector<rational> d);
 Creates an abstract containing the elements of the vector d.
 
+abstract(int n);
+Creates an abstract containing the element 0 through n-1.
+
 It has the following members:
 -----------------------------
 std::set<rational> data;
